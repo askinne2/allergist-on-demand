@@ -345,4 +345,3 @@ Built with modern web standards:
 ---
 
 **Ready to deploy!** Follow the Quick Start guide above to get started.
-
