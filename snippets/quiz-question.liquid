@@ -1,0 +1,145 @@
+{% comment %}
+  Quiz Question Component
+  Renders different question types with proper validation and accessibility
+  
+  Parameters:
+  - question: Object containing question data
+    - id: Unique identifier
+    - type: Question type (single_choice, severity_scale, text_input, email_input, checkbox)
+    - text: Question text
+    - subtitle: Optional helper text
+    - required: Boolean
+    - options: Array of options (for single_choice)
+    - placeholder: Placeholder text (for text/email inputs)
+  
+  Usage:
+  {% render 'quiz-question', question: question_object %}
+{% endcomment %}
+
+{%- liquid
+  assign q_id = question.id | default: 'question'
+  assign q_type = question.type | default: 'text_input'
+  assign q_text = question.text | default: ''
+  assign q_subtitle = question.subtitle | default: ''
+  assign q_required = question.required | default: true
+  assign q_options = question.options | default: blank
+  assign q_placeholder = question.placeholder | default: ''
+  assign q_category = question.category | default: 'general'
+-%}
+
+<div class="quiz-question" data-question-id="{{ q_id }}" data-question-category="{{ q_category }}">
+  
+  {%- if q_type == 'severity_scale' -%}
+    {%- comment -%} Severity scale uses the dedicated snippet {%- endcomment -%}
+    {% render 'severity-scale', question_id: q_id, label: q_text, required: q_required %}
+    
+  {%- elsif q_type == 'single_choice' -%}
+    {%- comment -%} Radio button group for single choice questions {%- endcomment -%}
+    <fieldset class="quiz-question__fieldset">
+      <legend class="quiz-question__legend">
+        {{ q_text }}
+        {%- if q_required -%}
+          <span class="quiz-question__required" aria-label="required">*</span>
+        {%- endif -%}
+      </legend>
+      
+      {%- if q_subtitle != blank -%}
+        <p class="quiz-question__subtitle">{{ q_subtitle }}</p>
+      {%- endif -%}
+      
+      <div class="quiz-question__options">
+        {%- for option in q_options -%}
+          <div class="quiz-question__option">
+            <input 
+              type="radio" 
+              id="{{ q_id }}_{{ option.value }}" 
+              name="{{ q_id }}" 
+              value="{{ option.value }}" 
+              class="quiz-question__radio"
+              {% if q_required %}required{% endif %}
+            >
+            <label for="{{ q_id }}_{{ option.value }}" class="quiz-question__radio-label">
+              {{ option.label }}
+            </label>
+          </div>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+    
+  {%- elsif q_type == 'email_input' -%}
+    {%- comment -%} Email input with validation {%- endcomment -%}
+    <div class="quiz-question__input-group">
+      <label for="{{ q_id }}" class="quiz-question__label">
+        {{ q_text }}
+        {%- if q_required -%}
+          <span class="quiz-question__required" aria-label="required">*</span>
+        {%- endif -%}
+      </label>
+      
+      {%- if q_subtitle != blank -%}
+        <p class="quiz-question__subtitle">{{ q_subtitle }}</p>
+      {%- endif -%}
+      
+      <input 
+        type="email" 
+        id="{{ q_id }}" 
+        name="{{ q_id }}" 
+        class="quiz-question__input quiz-question__input--email"
+        placeholder="{{ q_placeholder }}"
+        {% if q_required %}required{% endif %}
+        aria-describedby="{{ q_id }}_error"
+      >
+      <span id="{{ q_id }}_error" class="quiz-question__error" role="alert"></span>
+    </div>
+    
+  {%- elsif q_type == 'checkbox' -%}
+    {%- comment -%} Checkbox for consent {%- endcomment -%}
+    <div class="quiz-question__checkbox-group">
+      <input 
+        type="checkbox" 
+        id="{{ q_id }}" 
+        name="{{ q_id }}" 
+        value="true"
+        class="quiz-question__checkbox"
+        {% if q_required %}required{% endif %}
+        aria-describedby="{{ q_id }}_error"
+      >
+      <label for="{{ q_id }}" class="quiz-question__checkbox-label">
+        {{ q_text }}
+        {%- if q_required -%}
+          <span class="quiz-question__required" aria-label="required">*</span>
+        {%- endif -%}
+      </label>
+      <span id="{{ q_id }}_error" class="quiz-question__error" role="alert"></span>
+    </div>
+    
+  {%- else -%}
+    {%- comment -%} Default: text input {%- endcomment -%}
+    <div class="quiz-question__input-group">
+      <label for="{{ q_id }}" class="quiz-question__label">
+        {{ q_text }}
+        {%- if q_required -%}
+          <span class="quiz-question__required" aria-label="required">*</span>
+        {%- endif -%}
+      </label>
+      
+      {%- if q_subtitle != blank -%}
+        <p class="quiz-question__subtitle">{{ q_subtitle }}</p>
+      {%- endif -%}
+      
+      <input 
+        type="text" 
+        id="{{ q_id }}" 
+        name="{{ q_id }}" 
+        class="quiz-question__input"
+        placeholder="{{ q_placeholder }}"
+        {% if q_required %}required{% endif %}
+        aria-describedby="{{ q_id }}_error"
+      >
+      <span id="{{ q_id }}_error" class="quiz-question__error" role="alert"></span>
+    </div>
+    
+  {%- endif -%}
+  
+</div>
+

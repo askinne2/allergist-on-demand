@@ -18,7 +18,7 @@
           "type": "heading",
           "settings": {
             "heading": "Subscribe to our emails",
-            "heading_size": "h1"
+            "heading_size": "h2"
           }
         },
         "paragraph": {
@@ -41,23 +41,29 @@
         "color_scheme": "scheme-5",
         "full_width": true,
         "padding_top": 44,
-        "padding_bottom": 8
+        "padding_bottom": 16
       }
     },
     "footer": {
       "type": "footer",
       "blocks": {
-        "image_6G6cG9": {
-          "type": "image",
+        "brand_information_7wrC9H": {
+          "type": "brand_information",
           "settings": {
-            "image": "shopify://shop_images/alledrops-2-logo-stacked-white-rgb-3000px-w-300ppi.png",
-            "image_width": 200,
-            "alignment": "center"
+            "show_social": true
+          }
+        },
+        "link_list_XKfGLx": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer"
           }
         }
       },
       "block_order": [
-        "image_6G6cG9"
+        "brand_information_7wrC9H",
+        "link_list_XKfGLx"
       ],
       "settings": {
         "color_scheme": "scheme-5",

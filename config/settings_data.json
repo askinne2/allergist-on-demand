@@ -108,9 +108,9 @@
     "sale_badge_color_scheme": "scheme-5",
     "sold_out_badge_color_scheme": "scheme-3",
     "brand_headline": "",
-    "brand_description": "<p></p>",
-    "brand_image": "shopify://shop_images/bee-covered-in-yellow-dust.jpg",
-    "brand_image_width": 100,
+    "brand_description": "<p>Allergy Relief, Simplified.</p>",
+    "brand_image": "shopify://shop_images/alledrops-1-logo-aod-white-rgb.svg",
+    "brand_image_width": 300,
     "social_facebook_link": "",
     "social_instagram_link": "",
     "social_youtube_link": "",
@@ -149,6 +149,41 @@
         "type": "shopify://apps/apntly-appointment-booking-app/blocks/main-app-embed/17a520a2-4844-483a-826a-11cb5dd0370d",
         "disabled": false,
         "settings": {}
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "6541763305163392086": {
+        "type": "shopify://apps/quiz-kit-smart-product-finder/blocks/chat-embed/0b04f315-849a-4507-8339-7be41cc01813",
+        "disabled": true,
+        "settings": {
+          "float_button_enabled": true,
+          "float_button_position": "left",
+          "float_button_vertical_position": 5,
+          "icon_color": "#ffffff",
+          "float_button_background_color": "#566565",
+          "float_button_border_color": "#ffffff",
+          "style": "pill",
+          "float_button_text": "Can I help you decide?",
+          "float_button_text_color": "#ffffff",
+          "chat_background_color": "#ffffff",
+          "header_background_color": "#566565",
+          "welcome_message_heading": "Welcome",
+          "welcome_message_text": "What can I help you find?",
+          "chat_text_background_color": "#566565",
+          "chat_text_color": "#ffffff",
+          "chat_response_color": "#292929",
+          "chat_corner_style": "pill",
+          "chat_icon_source": "shopify://shop_images/alledrops-4-logo-circle-full-color-rgb-3000px-w-300ppi.jpg",
+          "question_animation_enabled": false,
+          "question_icon_color": "#292929",
+          "question_text_color": "#292929",
+          "question_background_color": "#f4f4f4",
+          "question_corner_style": "pill",
+          "custom_css": ""
+        }
       }
     },
     "color_schemes": {

@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "symptom_quiz": {
+      "type": "symptom-quiz",
+      "settings": {
+        "heading": "AlleDrops Symptom Assessment",
+        "subheading": "Take our comprehensive assessment to find the right regional allergy drops for your symptoms. This will take approximately 2-3 minutes.",
+        "show_disclaimer": true,
+        "btn_prev_text": "Previous",
+        "btn_next_text": "Next",
+        "btn_submit_text": "Submit Assessment",
+        "use_metaobjects": false,
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "quiz_results": {
+      "type": "quiz-results",
+      "settings": {
+        "minimal_title": "Minimal Symptoms",
+        "minimal_text": "Your symptoms appear minimal. Sublingual immunotherapy may not be necessary at this time.",
+        "mild_title": "Mild Symptoms",
+        "mild_text": "You have mild allergy symptoms. We recommend scheduling a consultation before starting treatment.",
+        "moderate_title": "Moderate Symptoms",
+        "moderate_text": "You're a good candidate for AlleDrops! Your moderate symptoms indicate sublingual immunotherapy could help.",
+        "severe_title": "Severe Symptoms",
+        "severe_text": "You're an excellent candidate for AlleDrops! Your severe symptoms strongly indicate a need for immunotherapy.",
+        "consultation_heading": "Schedule a Consultation",
+        "consultation_text": "We recommend speaking with one of our allergists before starting treatment.",
+        "consultation_btn_text": "Book Free Consultation",
+        "education_heading": "Learn More About Allergies",
+        "education_text": "Your symptoms appear minimal at this time. Learn more about managing allergies naturally.",
+        "education_btn_text": "View Resources",
+        "product_handle_format": "{region}-allergy-drops",
+        "show_disclaimer": true,
+        "retake_btn_text": "Retake Assessment",
+        "padding_top": 0,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "symptom_quiz",
+    "quiz_results"
+  ]
+}
+

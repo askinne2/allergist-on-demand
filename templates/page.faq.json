@@ -23,14 +23,14 @@
         "heading_3QdbnG": {
           "type": "heading",
           "settings": {
-            "heading": "Find the Right Relief, Fast",
+            "heading": "Frequently Asked Questions",
             "heading_size": "h1"
           }
         },
         "text_FiMgya": {
           "type": "text",
           "settings": {
-            "text": "Take our 2-minute quiz to discover which AlleDrops formula is right for your region and symptoms.",
+            "text": "Get answers to common questions about AllerDrops from Allergist on Demand.",
             "text_style": "subtitle"
           }
         },
@@ -65,77 +65,6 @@
         "stack_images_on_mobile": true,
         "mobile_content_alignment": "center",
         "show_text_below": true
-      }
-    },
-    "17615616560892d862": {
-      "type": "apps",
-      "blocks": {
-        "quiz_kit_smart_product_finder_quiz_VWGAKC": {
-          "type": "shopify://apps/quiz-kit-smart-product-finder/blocks/quiz/0b04f315-849a-4507-8339-7be41cc01813",
-          "settings": {
-            "key": "JKa3FwIRmI7"
-          }
-        }
-      },
-      "block_order": [
-        "quiz_kit_smart_product_finder_quiz_VWGAKC"
-      ],
-      "settings": {
-        "include_margins": false
-      }
-    },
-    "multicolumn_VihimR": {
-      "type": "multicolumn",
-      "blocks": {
-        "column_RpyrTT": {
-          "type": "column",
-          "settings": {
-            "title": "Professionally compounded in the U.S.",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_nENC8C": {
-          "type": "column",
-          "settings": {
-            "title": "Physician‑supervised formulations",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_hAkQMM": {
-          "type": "column",
-          "settings": {
-            "title": "Shipped directly to your door",
-            "text": "",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column_RpyrTT",
-        "column_nENC8C",
-        "column_hAkQMM"
-      ],
-      "name": "t:sections.multicolumn.presets.name",
-      "settings": {
-        "title": "Safe. Effective. Convenient.",
-        "heading_size": "h1",
-        "image_width": "full",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "primary",
-        "color_scheme": "scheme-4",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 100,
-        "padding_bottom": 36
       }
     },
     "image_with_text_GJj4WF": {
@@ -186,36 +115,74 @@
         "padding_bottom": 36
       }
     },
-    "multicolumn_i3bUDY": {
-      "type": "multicolumn",
+    "collapsible_content_ki6P68": {
+      "type": "collapsible-content",
       "blocks": {
-        "column_8gJ3gY": {
-          "type": "column",
+        "collapsible_row_gbUiPU": {
+          "type": "collapsible_row",
           "settings": {
-            "title": "Visit Our FAQ page",
-            "text": "<p>Or you can <a href=\"/pages/contact\" title=\"Contact\">contact us</a> at anytime.</p>",
-            "link_label": "View FAQ",
-            "link": "shopify://pages/faq"
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_KPCYDU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_MXxryW": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_KTDM7d": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_yNGiEH": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
           }
         }
       },
       "block_order": [
-        "column_8gJ3gY"
+        "collapsible_row_gbUiPU",
+        "collapsible_row_KPCYDU",
+        "collapsible_row_MXxryW",
+        "collapsible_row_KTDM7d",
+        "collapsible_row_yNGiEH"
       ],
-      "name": "t:sections.multicolumn.presets.name",
+      "name": "t:sections.collapsible_content.presets.name",
       "settings": {
-        "title": "Still have questions?",
+        "caption": "",
+        "heading": "",
         "heading_size": "h1",
-        "image_width": "full",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "open_first_collapsible_row": true,
         "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 1,
-        "column_alignment": "center",
-        "background_style": "primary",
-        "color_scheme": "scheme-5",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
+        "desktop_layout": "image_second",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -224,9 +191,7 @@
   "order": [
     "main",
     "image_banner_YpatzC",
-    "17615616560892d862",
-    "multicolumn_VihimR",
     "image_with_text_GJj4WF",
-    "multicolumn_i3bUDY"
+    "collapsible_content_ki6P68"
   ]
 }

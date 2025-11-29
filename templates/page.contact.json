@@ -11,8 +11,40 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_XGP6aw": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Qwe6NJ": {
+          "type": "heading",
+          "settings": {
+            "heading": "Contact Us",
+            "heading_size": "h1"
+          }
+        },
+        "text_p6heDD": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_Qwe6NJ",
+        "text_p6heDD"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 40,
         "padding_bottom": 0
       }
     },
@@ -29,6 +61,7 @@
   },
   "order": [
     "main",
+    "rich_text_XGP6aw",
     "form"
   ]
 }
