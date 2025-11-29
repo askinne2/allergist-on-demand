@@ -1,0 +1,90 @@
+{% comment %}
+  Severity Scale Component
+  Renders a 0-3 severity rating scale for symptom questions
+  
+  Parameters:
+  - question_id: Unique identifier for the question
+  - label: Label text for the symptom
+  - required: Boolean, whether the field is required
+  
+  Usage:
+  {% render 'severity-scale', question_id: 'nasal_runny', label: 'Runny Nose', required: true %}
+{% endcomment %}
+
+{%- liquid
+  assign question_id = question_id | default: 'symptom'
+  assign label = label | default: 'Symptom'
+  assign required = required | default: true
+-%}
+
+<fieldset class="severity-scale" data-severity-scale>
+  <legend class="severity-scale__legend">
+    {{ label }}
+    {%- if required -%}
+      <span class="severity-scale__required" aria-label="required">*</span>
+    {%- endif -%}
+  </legend>
+  
+  <div class="severity-scale__options">
+    <div class="severity-scale__option">
+      <input 
+        type="radio" 
+        id="{{ question_id }}_none" 
+        name="{{ question_id }}" 
+        value="0" 
+        class="severity-scale__input"
+        {% if required %}required{% endif %}
+      >
+      <label for="{{ question_id }}_none" class="severity-scale__label severity-scale__label--none">
+        <span class="severity-scale__value">0</span>
+        <span class="severity-scale__text">None</span>
+      </label>
+    </div>
+    
+    <div class="severity-scale__option">
+      <input 
+        type="radio" 
+        id="{{ question_id }}_mild" 
+        name="{{ question_id }}" 
+        value="1" 
+        class="severity-scale__input"
+        {% if required %}required{% endif %}
+      >
+      <label for="{{ question_id }}_mild" class="severity-scale__label severity-scale__label--mild">
+        <span class="severity-scale__value">1</span>
+        <span class="severity-scale__text">Mild</span>
+      </label>
+    </div>
+    
+    <div class="severity-scale__option">
+      <input 
+        type="radio" 
+        id="{{ question_id }}_moderate" 
+        name="{{ question_id }}" 
+        value="2" 
+        class="severity-scale__input"
+        {% if required %}required{% endif %}
+      >
+      <label for="{{ question_id }}_moderate" class="severity-scale__label severity-scale__label--moderate">
+        <span class="severity-scale__value">2</span>
+        <span class="severity-scale__text">Moderate</span>
+      </label>
+    </div>
+    
+    <div class="severity-scale__option">
+      <input 
+        type="radio" 
+        id="{{ question_id }}_severe" 
+        name="{{ question_id }}" 
+        value="3" 
+        class="severity-scale__input"
+        {% if required %}required{% endif %}
+      >
+      <label for="{{ question_id }}_severe" class="severity-scale__label severity-scale__label--severe">
+        <span class="severity-scale__value">3</span>
+        <span class="severity-scale__text">Severe</span>
+      </label>
+    </div>
+  </div>
+</fieldset>
+

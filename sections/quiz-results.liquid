@@ -1,0 +1,309 @@
+{{ 'symptom-quiz.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="quiz-results-wrapper section-{{ section.id }}-padding" data-quiz-results style="display: none;">
+  <div class="page-width">
+    
+    {%- comment -%} Results Header {%- endcomment -%}
+    <div class="quiz-results__header">
+      <h2 class="quiz-results__title">Your Assessment Results</h2>
+    </div>
+    
+    {%- comment -%} Score Display {%- endcomment -%}
+    <div class="quiz-results__score-container">
+      <div class="quiz-results__score-circle" data-results-circle>
+        <span class="quiz-results__score-number" data-results-score>0</span>
+        <span class="quiz-results__score-max">/60</span>
+      </div>
+      <div class="quiz-results__severity">
+        <span class="quiz-results__severity-label">Severity Level:</span>
+        <span class="quiz-results__severity-value" data-results-severity>Calculating...</span>
+      </div>
+    </div>
+    
+    {%- comment -%} Recommendation Message {%- endcomment -%}
+    <div class="quiz-results__recommendation" data-results-recommendation>
+      <div class="quiz-results__message" data-results-message>
+        {%- comment -%} Message populated by JavaScript based on score {%- endcomment -%}
+      </div>
+    </div>
+    
+    {%- comment -%} Product Recommendation {%- endcomment -%}
+    <div class="quiz-results__product" data-results-product style="display: none;">
+      <h3 class="quiz-results__product-title">Recommended for You</h3>
+      <div class="quiz-results__product-card" data-product-card>
+        {%- comment -%} Product details populated by JavaScript {%- endcomment -%}
+      </div>
+    </div>
+    
+    {%- comment -%} Consultation CTA {%- endcomment -%}
+    <div class="quiz-results__consultation" data-results-consultation style="display: none;">
+      <h3 class="quiz-results__consultation-title">{{ section.settings.consultation_heading | default: 'Schedule a Consultation' }}</h3>
+      <p class="quiz-results__consultation-text">
+        {{ section.settings.consultation_text | default: 'We recommend speaking with one of our allergists before starting treatment.' }}
+      </p>
+      <a href="{{ section.settings.consultation_url }}" class="quiz-results__btn quiz-results__btn--consultation">
+        {{ section.settings.consultation_btn_text | default: 'Book Free Consultation' }}
+      </a>
+    </div>
+    
+    {%- comment -%} Educational Content CTA {%- endcomment -%}
+    <div class="quiz-results__education" data-results-education style="display: none;">
+      <h3 class="quiz-results__education-title">{{ section.settings.education_heading | default: 'Learn More About Allergies' }}</h3>
+      <p class="quiz-results__education-text">
+        {{ section.settings.education_text | default: 'Your symptoms appear minimal at this time. Learn more about managing allergies.' }}
+      </p>
+      <a href="{{ section.settings.education_url }}" class="quiz-results__btn quiz-results__btn--education">
+        {{ section.settings.education_btn_text | default: 'View Resources' }}
+      </a>
+    </div>
+    
+    {%- comment -%} Profile ID Display {%- endcomment -%}
+    <div class="quiz-results__profile">
+      <p class="quiz-results__profile-text">
+        Your Symptom Profile ID: <strong data-results-profile-id>-</strong>
+      </p>
+      <p class="quiz-results__profile-note">
+        Save this ID for your records. Our customer service team can reference it to view your detailed assessment.
+      </p>
+    </div>
+    
+    {%- comment -%} Privacy & Disclaimer {%- endcomment -%}
+    <div class="quiz-results__footer">
+      {%- if section.settings.show_disclaimer -%}
+        <div class="quiz-results__disclaimer">
+          <p>
+            <strong>Important:</strong> 
+            This assessment provides product recommendations only and is not a medical diagnosis. 
+            Always consult with a qualified healthcare provider before starting any new treatment.
+          </p>
+        </div>
+      {%- endif -%}
+      
+      <div class="quiz-results__actions">
+        <button 
+          type="button" 
+          class="quiz-results__btn quiz-results__btn--secondary" 
+          data-retake-quiz
+        >
+          {{ section.settings.retake_btn_text | default: 'Retake Assessment' }}
+        </button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+{%- comment -%} Results Configuration {%- endcomment -%}
+<script>
+  window.AlleDropsResultsConfig = {
+    messages: {
+      minimal: {
+        title: {{ section.settings.minimal_title | default: 'Minimal Symptoms' | json }},
+        text: {{ section.settings.minimal_text | default: 'Your symptoms appear minimal. Sublingual immunotherapy may not be necessary at this time.' | json }}
+      },
+      mild: {
+        title: {{ section.settings.mild_title | default: 'Mild Symptoms' | json }},
+        text: {{ section.settings.mild_text | default: 'You have mild allergy symptoms. We recommend scheduling a consultation before starting treatment.' | json }}
+      },
+      moderate: {
+        title: {{ section.settings.moderate_title | default: 'Moderate Symptoms' | json }},
+        text: {{ section.settings.moderate_text | default: "You're a good candidate for AlleDrops! Your moderate symptoms indicate sublingual immunotherapy could help." | json }}
+      },
+      severe: {
+        title: {{ section.settings.severe_title | default: 'Severe Symptoms' | json }},
+        text: {{ section.settings.severe_text | default: "You're an excellent candidate for AlleDrops! Your severe symptoms strongly indicate a need for immunotherapy." | json }}
+      }
+    },
+    productHandleFormat: {% if section.settings.product_handle_format %}{{ section.settings.product_handle_format | json }}{% else %}'{region}-allergy-drops'{% endif %},
+    shopUrl: {{ shop.url | json }}
+  };
+</script>
+
+<script src="{{ 'quiz-results.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Quiz Results",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Result Messages"
+    },
+    {
+      "type": "text",
+      "id": "minimal_title",
+      "label": "Minimal Symptoms - Title",
+      "default": "Minimal Symptoms"
+    },
+    {
+      "type": "textarea",
+      "id": "minimal_text",
+      "label": "Minimal Symptoms - Message",
+      "default": "Your symptoms appear minimal. Sublingual immunotherapy may not be necessary at this time."
+    },
+    {
+      "type": "text",
+      "id": "mild_title",
+      "label": "Mild Symptoms - Title",
+      "default": "Mild Symptoms"
+    },
+    {
+      "type": "textarea",
+      "id": "mild_text",
+      "label": "Mild Symptoms - Message",
+      "default": "You have mild allergy symptoms. We recommend scheduling a consultation before starting treatment."
+    },
+    {
+      "type": "text",
+      "id": "moderate_title",
+      "label": "Moderate Symptoms - Title",
+      "default": "Moderate Symptoms"
+    },
+    {
+      "type": "textarea",
+      "id": "moderate_text",
+      "label": "Moderate Symptoms - Message",
+      "default": "You're a good candidate for AlleDrops! Your moderate symptoms indicate sublingual immunotherapy could help."
+    },
+    {
+      "type": "text",
+      "id": "severe_title",
+      "label": "Severe Symptoms - Title",
+      "default": "Severe Symptoms"
+    },
+    {
+      "type": "textarea",
+      "id": "severe_text",
+      "label": "Severe Symptoms - Message",
+      "default": "You're an excellent candidate for AlleDrops! Your severe symptoms strongly indicate a need for immunotherapy."
+    },
+    {
+      "type": "header",
+      "content": "Consultation CTA (Score 5-9)"
+    },
+    {
+      "type": "text",
+      "id": "consultation_heading",
+      "label": "Heading",
+      "default": "Schedule a Consultation"
+    },
+    {
+      "type": "textarea",
+      "id": "consultation_text",
+      "label": "Description",
+      "default": "We recommend speaking with one of our allergists before starting treatment."
+    },
+    {
+      "type": "url",
+      "id": "consultation_url",
+      "label": "Consultation URL"
+    },
+    {
+      "type": "text",
+      "id": "consultation_btn_text",
+      "label": "Button Text",
+      "default": "Book Free Consultation"
+    },
+    {
+      "type": "header",
+      "content": "Educational Content CTA (Score 0-4)"
+    },
+    {
+      "type": "text",
+      "id": "education_heading",
+      "label": "Heading",
+      "default": "Learn More About Allergies"
+    },
+    {
+      "type": "textarea",
+      "id": "education_text",
+      "label": "Description",
+      "default": "Your symptoms appear minimal at this time. Learn more about managing allergies."
+    },
+    {
+      "type": "url",
+      "id": "education_url",
+      "label": "Education URL"
+    },
+    {
+      "type": "text",
+      "id": "education_btn_text",
+      "label": "Button Text",
+      "default": "View Resources"
+    },
+    {
+      "type": "header",
+      "content": "Product Configuration"
+    },
+    {
+      "type": "text",
+      "id": "product_handle_format",
+      "label": "Product Handle Format",
+      "default": "{region}-allergy-drops",
+      "info": "Use {region} placeholder. Example: northwest-allergy-drops"
+    },
+    {
+      "type": "header",
+      "content": "Other Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_disclaimer",
+      "label": "Show Medical Disclaimer",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "retake_btn_text",
+      "label": "Retake Button Text",
+      "default": "Retake Assessment"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz Results"
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,163 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "quiz_kit_smart_product_finder_badge_iDdVA7": {
+          "type": "shopify://apps/quiz-kit-smart-product-finder/blocks/badge/0b04f315-849a-4507-8339-7be41cc01813",
+          "settings": {
+            "text": "Your match",
+            "text_color": "#fdfbf7",
+            "text_font_size": 16,
+            "text_font_weight": "600",
+            "text_uppercase": true,
+            "icon_size": 30,
+            "icon_disable": false,
+            "width": "auto",
+            "position": "flex-start",
+            "background_color": "#566565",
+            "border_color": "#566565",
+            "border_radius": 20,
+            "border_width": 1
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown",
+            "swatch_shape": "circle"
+          }
+        },
+        "regional_info_block_DJzMYb": {
+          "type": "regional_info_block",
+          "settings": {
+            "show_heading": true,
+            "heading": "Your Regional Formula",
+            "compact_style": true
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "quiz_kit_smart_product_finder_badge_iDdVA7",
+        "price",
+        "variant_picker",
+        "regional_info_block_DJzMYb",
+        "quantity_selector",
+        "buy_buttons",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-4",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "rich_text_bnF7R9": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_RxFYdj": {
+          "type": "heading",
+          "settings": {
+            "heading": "About Regional Allergy Drops",
+            "heading_size": "h1"
+          }
+        },
+        "text_BRX3QG": {
+          "type": "text",
+          "settings": {
+            "text": "<p></p>{{ product.description }}"
+          }
+        }
+      },
+      "block_order": [
+        "heading_RxFYdj",
+        "text_BRX3QG"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-4",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 68
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_bnF7R9",
+    "related-products"
+  ]
+}

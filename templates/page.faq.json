@@ -1,0 +1,197 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_YpatzC": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_3QdbnG": {
+          "type": "heading",
+          "settings": {
+            "heading": "Frequently Asked Questions",
+            "heading_size": "h1"
+          }
+        },
+        "text_FiMgya": {
+          "type": "text",
+          "settings": {
+            "text": "Get answers to common questions about AllerDrops from Allergist on Demand.",
+            "text_style": "subtitle"
+          }
+        },
+        "buttons_4cnzFB": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_3QdbnG",
+        "text_FiMgya",
+        "buttons_4cnzFB"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AdobeStock_219422222-scaled.jpg",
+        "image_overlay_opacity": 50,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-3",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "image_with_text_GJj4WF": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_ezHfzQ": {
+          "type": "caption",
+          "settings": {
+            "caption": "Allergist On Demand",
+            "text_style": "subtitle",
+            "text_size": "large"
+          }
+        },
+        "heading_GY3WrP": {
+          "type": "heading",
+          "settings": {
+            "heading": "What are AlleDrops",
+            "heading_size": "h1"
+          }
+        },
+        "text_PxVBcz": {
+          "type": "text",
+          "settings": {
+            "text": "<p>AlleDrops are allergy drops you can take under the tongue that help build long-term tolerance to allergens. Think of them as a more convenient, needle-free version of allergy shots. They’re safe, easy to use, and effective for both seasonal and environmental allergies.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "caption_ezHfzQ",
+        "heading_GY3WrP",
+        "text_PxVBcz"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/bee-covered-in-yellow-dust.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collapsible_content_ki6P68": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_gbUiPU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_KPCYDU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_MXxryW": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_KTDM7d": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_yNGiEH": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_gbUiPU",
+        "collapsible_row_KPCYDU",
+        "collapsible_row_MXxryW",
+        "collapsible_row_KTDM7d",
+        "collapsible_row_yNGiEH"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_YpatzC",
+    "image_with_text_GJj4WF",
+    "collapsible_content_ki6P68"
+  ]
+}

@@ -1,0 +1,194 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_YpatzC": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_3QdbnG": {
+          "type": "heading",
+          "settings": {
+            "heading": "Meet Your Provider Team",
+            "heading_size": "h1"
+          }
+        },
+        "text_FiMgya": {
+          "type": "text",
+          "settings": {
+            "text": "Experts Who Believe in Simpler, Smarter Allergy Care",
+            "text_style": "subtitle"
+          }
+        },
+        "buttons_4cnzFB": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_3QdbnG",
+        "text_FiMgya",
+        "buttons_4cnzFB"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AlleDrop-Hero.jpg",
+        "image_overlay_opacity": 50,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-3",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "rich_text_MmDCHd": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_rMraDq": {
+          "type": "heading",
+          "settings": {
+            "heading": "Powering AlleDrops",
+            "heading_size": "h1"
+          }
+        },
+        "text_pAtGeN": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Allergist On Demand medical team powers every AlleDrops formulation. Our providers are board‑certified allergists and immunologists with extensive clinical experience — and a shared mission to make effective allergy treatment available to everyone, not just those near a major clinic.<br/><br/>Each provider works closely with our compounding pharmacy partners to oversee every formulation and ensure the highest standards of safety, consistency, and care.</p>"
+          }
+        },
+        "text_YB7pfH": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Our Philosophy<br/></h3><p>We believe the best medicine meets people where they are. That’s why our team focuses on:<br/></p><ul><li><strong>Personalized Care:</strong> Allergy treatment should be as unique as you are.</li><li><strong>Transparency:</strong> Clear guidance on what’s in your drops and how they work.</li><li><strong>Safety:</strong> Physician‑reviewed and quality‑controlled formulas.</li><li><strong>Access:</strong> Expert care without the barriers of travel, cost, or wait times.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_rMraDq",
+        "text_pAtGeN",
+        "text_YB7pfH"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "multicolumn_VihimR": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_BYaDWb": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/DrSullivanMed.jpg",
+            "title": "Dr. Ryan Sullivan, MD",
+            "text": "<p>Chief Allergist</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_RpyrTT": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/DrSullivanMed.jpg",
+            "title": "Dr. William Miller, MD, MBA",
+            "text": "<p>Board‑Certified Allergist & Chief Executive Officer</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_af7ydP": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/DrSullivanMed.jpg",
+            "title": "Dr. Richard C. Wright, MD",
+            "text": "<p>Founder & Chairman, Allergist On Demand</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_Kai7Th": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/DrSullivanMed.jpg",
+            "title": "Aida Figueroa, RN, MSN",
+            "text": "<p>Clinical Director</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_edzdJq": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/DrSullivanMed.jpg",
+            "title": "Scott Sumrall, PharmD",
+            "text": "<p>Compounding Partner</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_BYaDWb",
+        "column_RpyrTT",
+        "column_af7ydP",
+        "column_Kai7Th",
+        "column_edzdJq"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Meet the Team",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "portrait",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-4",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_YpatzC",
+    "rich_text_MmDCHd",
+    "multicolumn_VihimR"
+  ]
+}

@@ -1,0 +1,370 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_YpatzC": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_3QdbnG": {
+          "type": "heading",
+          "settings": {
+            "heading": "Personalized Allergy Relief",
+            "heading_size": "h1"
+          }
+        },
+        "text_FiMgya": {
+          "type": "text",
+          "settings": {
+            "text": "We’ve simplified the allergy care process into one seamless online experience. Whether you’re dealing with year-round symptoms or seasonal sneezing fits, AlleDrops gets you the relief you need, delivered directly to your door.",
+            "text_style": "subtitle"
+          }
+        },
+        "buttons_4cnzFB": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_3QdbnG",
+        "text_FiMgya",
+        "buttons_4cnzFB"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AlleDrop-Hero.jpg",
+        "image_overlay_opacity": 50,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-3",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "image_with_text_UV4qRH": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_t34tU7": {
+          "type": "caption",
+          "settings": {
+            "caption": "Step 1: Take the Quiz",
+            "text_style": "subtitle",
+            "text_size": "large"
+          }
+        },
+        "heading_GBDCCA": {
+          "type": "heading",
+          "settings": {
+            "heading": "Discover the right formula in under 2 minutes.",
+            "heading_size": "h1"
+          }
+        },
+        "text_cPFcFw": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our quiz helps match you with a region-based allergy drop blend tailored to where you live and what’s likely triggering your symptoms. No prior allergy testing required — just answer a few quick questions and we’ll guide you to the right fit.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_cGFXGk": {
+          "type": "button",
+          "settings": {
+            "button_label": "Start the Quiz",
+            "button_link": "shopify://pages/allergy-quiz",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "caption_t34tU7",
+        "heading_GBDCCA",
+        "text_cPFcFw",
+        "button_cGFXGk"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/science-beaker-and-pipette.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_n8exJn": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_HVCLCg": {
+          "type": "caption",
+          "settings": {
+            "caption": "Step 2: Shop Your Regional Formula",
+            "text_style": "subtitle",
+            "text_size": "large"
+          }
+        },
+        "heading_Nmcd8K": {
+          "type": "heading",
+          "settings": {
+            "heading": "Choose your drop schedule and check out — that’s it.",
+            "heading_size": "h1"
+          }
+        },
+        "text_EAMrbk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Based on your quiz results, we’ll recommend the best AlleDrops blend for your area. Each formula is backed by clinical science and compounded by licensed U.S. pharmacies. Just select your preferred frequency (Quarterly, Semi-Annual, or Annual) and we’ll handle the rest.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "caption_HVCLCg",
+        "heading_Nmcd8K",
+        "text_EAMrbk"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AdobeStock_558701871-scaled.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_x9pB9e": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_BV3Ywb": {
+          "type": "caption",
+          "settings": {
+            "caption": "Step 3: (Optional) Speak With a Licensed Allergist",
+            "text_style": "subtitle",
+            "text_size": "large"
+          }
+        },
+        "heading_c3qa9c": {
+          "type": "heading",
+          "settings": {
+            "heading": "Live in Texas or Tennessee? You can schedule a consult.",
+            "heading_size": "h1"
+          }
+        },
+        "text_Mknk4z": {
+          "type": "text",
+          "settings": {
+            "text": "<p>If you’d like extra support, patients in TX or TN can book a virtual visit with a board-certified allergist. They’ll review your symptoms, answer questions, and recommend personalized care options — all from the comfort of home.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "caption_BV3Ywb",
+        "heading_c3qa9c",
+        "text_Mknk4z"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AdobeStock_466281527-1-scaled_964f4537-4a66-4665-85c0-283f4eca2e41.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_VihimR": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_RpyrTT": {
+          "type": "column",
+          "settings": {
+            "title": "Professionally compounded in the U.S.",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_nENC8C": {
+          "type": "column",
+          "settings": {
+            "title": "Physician‑supervised formulations",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_hAkQMM": {
+          "type": "column",
+          "settings": {
+            "title": "Shipped directly to your door",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_RpyrTT",
+        "column_nENC8C",
+        "column_hAkQMM"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Safe. Effective. Convenient.",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-5",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_GJj4WF": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_ezHfzQ": {
+          "type": "caption",
+          "settings": {
+            "caption": "Allergist On Demand",
+            "text_style": "subtitle",
+            "text_size": "large"
+          }
+        },
+        "heading_GY3WrP": {
+          "type": "heading",
+          "settings": {
+            "heading": "What are AlleDrops",
+            "heading_size": "h1"
+          }
+        },
+        "text_PxVBcz": {
+          "type": "text",
+          "settings": {
+            "text": "<p>AlleDrops are allergy drops you can take under the tongue that help build long-term tolerance to allergens. Think of them as a more convenient, needle-free version of allergy shots. They’re safe, easy to use, and effective for both seasonal and environmental allergies.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "caption_ezHfzQ",
+        "heading_GY3WrP",
+        "text_PxVBcz"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/bee-covered-in-yellow-dust.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-5",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_i3bUDY": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_8gJ3gY": {
+          "type": "column",
+          "settings": {
+            "title": "Visit Our FAQ page",
+            "text": "<p>Or you can <a href=\"/pages/contact\" title=\"Contact\">contact us</a> at anytime.</p>",
+            "link_label": "View FAQ",
+            "link": "shopify://pages/faq"
+          }
+        }
+      },
+      "block_order": [
+        "column_8gJ3gY"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Still have questions?",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 1,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-5",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_YpatzC",
+    "image_with_text_UV4qRH",
+    "image_with_text_n8exJn",
+    "image_with_text_x9pB9e",
+    "multicolumn_VihimR",
+    "image_with_text_GJj4WF",
+    "multicolumn_i3bUDY"
+  ]
+}
