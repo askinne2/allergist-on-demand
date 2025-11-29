@@ -1,0 +1,107 @@
+{%- comment -%}
+  Regional Info Content Snippet
+  Renders the regional allergy information for a product
+  
+  Accepts:
+  - product: {Object} The product object to display info for
+  - show_heading: {Boolean} Whether to show the heading
+  - heading: {String} The heading text
+  - compact: {Boolean} Whether to use compact styling (for blocks)
+  - block_id: {String} Optional block ID for unique identification
+{%- endcomment -%}
+
+{%- liquid
+  assign region_info_ref = product.metafields.custom.regional_allergy_info
+  assign region_info = region_info_ref.value
+-%}
+
+{%- if region_info != blank -%}
+  {%- comment -%} Hidden inputs for cart line item properties {%- endcomment -%}
+  <input type="hidden" 
+         class="regional-info-property" 
+         name="properties[Regional Formula]" 
+         value="{{ region_info.region_name }}">
+  <input type="hidden" 
+         class="regional-info-property" 
+         name="properties[_Region Slug]" 
+         value="{{ region_info.slug }}">
+  <input type="hidden" 
+         class="regional-info-property" 
+         name="properties[_Formula States]" 
+         value="{{ region_info.states.value | join: ', ' }}">
+  
+  <div class="regional-info-card{% if compact %} regional-info-card--compact{% endif %}">
+    {%- if show_heading -%}
+      <h3 class="regional-info-heading{% if compact %} h4{% else %} h3{% endif %}">
+        {{ heading | default: "Your Regional Formula" }}
+      </h3>
+    {%- endif -%}
+    
+    <div class="regional-info-content">
+      {%- if region_info.region_name != blank -%}
+        <div class="region-name-badge{% if compact %} region-name-badge--compact{% endif %}">
+          <span class="icon-wrapper">🌿</span>
+          <span class="region-name">{{ region_info.region_name }}</span>
+        </div>
+      {%- endif -%}
+      
+      {%- if region_info.formula_description != blank -%}
+        <div class="formula-description rte">
+          {{ region_info.formula_description | metafield_tag }}
+        </div>
+      {%- endif -%}
+      
+      {%- if region_info.allergens != blank -%}
+        <details class="allergens-section" {% unless compact %}open{% endunless %}>
+          <summary class="allergens-summary">
+            <span class="icon-emoji">🌿</span>
+            <span class="summary-text">Common Allergens</span>
+            <span class="icon-caret">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </summary>
+          <div class="allergens-content">
+            {%- assign allergen_list = region_info.allergens | split: ',' -%}
+            <ul class="allergens-list">
+              {%- for allergen in allergen_list -%}
+                <li>{{ allergen | strip }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </details>
+      {%- endif -%}
+      
+      {%- if region_info.states != blank -%}
+        <details class="states-section" {% unless compact %}open{% endunless %}>
+          <summary class="states-summary">
+            <span class="icon-emoji">📍</span>
+            <span class="summary-text">Includes States</span>
+            <span class="icon-caret">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </summary>
+          <div class="states-content">
+            <div class="states-pills">
+              {%- if region_info.states.value -%}
+                {%- for state in region_info.states.value -%}
+                  <span class="state-pill{% if compact %} state-pill--compact{% endif %}">{{ state }}</span>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for state in region_info.states -%}
+                  <span class="state-pill{% if compact %} state-pill--compact{% endif %}">{{ state.value | default: state }}</span>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </div>
+        </details>
+      {%- endif -%}
+    </div>
+  </div>
+{%- else -%}
+  {%- unless compact -%}
+    <div class="regional-info-empty">
+      <p>Select a region to see customized allergy information.</p>
+    </div>
+  {%- endunless -%}
+{%- endif -%}
+

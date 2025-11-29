@@ -9,12 +9,298 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "image_banner_jj84xi": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_MmQ3KR": {
+          "type": "heading",
+          "settings": {
+            "heading": "Personalized Allergy Relief",
+            "heading_size": "h1"
+          }
+        },
+        "text_7Hamtf": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>Safe, effective allergy drops delivered straight to your door</strong>",
+            "text_style": "subtitle"
+          }
+        },
+        "buttons_fUDW8c": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Take the Quiz",
+            "button_link_1": "shopify://pages/allergy-quiz",
+            "button_style_secondary_1": false,
+            "button_label_2": "Shop Drops",
+            "button_link_2": "shopify://products/regional-allergy-drops",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_MmQ3KR",
+        "text_7Hamtf",
+        "buttons_fUDW8c"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/woman-sits-on-a-bench-outdoors-with-eyes-closed.jpg",
+        "image_overlay_opacity": 20,
+        "image_height": "large",
+        "image_behavior": "fixed",
+        "desktop_content_position": "bottom-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-3",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "multicolumn_wVmkbC": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_VF9nqQ": {
+          "type": "column",
+          "settings": {
+            "title": "Take the Quiz",
+            "text": "<p>Find out if AlleDrops are a good fit in under 2 minutes.</p>",
+            "link_label": "",
+            "link": "shopify://pages/allergy-quiz"
+          }
+        },
+        "column_MnCjDc": {
+          "type": "column",
+          "settings": {
+            "title": "Shop Your Formula",
+            "text": "<p>Choose from regional or allergy-specific options, with flexible treatment plans.</p>",
+            "link_label": "",
+            "link": "shopify://collections"
+          }
+        },
+        "column_ALraJq": {
+          "type": "column",
+          "settings": {
+            "title": "Start Treatment",
+            "text": "<p>Your drops arrive at your door — no needles, no appointments required.</p>",
+            "link_label": "",
+            "link": "shopify://products/regional-allergy-drops"
+          }
+        }
+      },
+      "block_order": [
+        "column_VF9nqQ",
+        "column_MnCjDc",
+        "column_ALraJq"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Allergy Relief, Simplified",
+        "heading_size": "h0",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "Shop Drops",
+        "button_link": "shopify://collections",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-4",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 4,
+        "title": "Shop Regional Allergy Drops",
+        "heading_size": "h0",
+        "description": "<p><strong>Formulated by board-certified allergists </strong></p>",
+        "show_description": false,
+        "description_style": "subtitle",
+        "columns_desktop": 2,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-4",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 56,
+        "padding_bottom": 68
+      }
+    },
+    "image_with_text_6AETTc": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_7GEXp8": {
+          "type": "heading",
+          "settings": {
+            "heading": "About AlleDrops",
+            "heading_size": "h1"
+          }
+        },
+        "text_aLTXzE": {
+          "type": "text",
+          "settings": {
+            "text": "<p>AlleDrops is a clinician-developed allergy care solution that makes treatment simple, safe, and accessible. Our board-certified allergists and pharmacy partners create sublingual allergy drops customized to your region and allergy profile — with no needles and no clinic visits required.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_pfWX7z": {
+          "type": "button",
+          "settings": {
+            "button_label": "About Us",
+            "button_link": "shopify://pages/about-us",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_7GEXp8",
+        "text_aLTXzE",
+        "button_pfWX7z"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/young-woman-dances-with-nature.jpg",
+        "height": "adapt",
+        "desktop_image_width": "large",
+        "layout": "text_first",
+        "image_behavior": "zoom-in",
+        "content_layout": "overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-5",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_iKtthN": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_nwybYG": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "text": "<p>\"The process was seamless. I finally feel like I have my allergies under control.” <em>Maria M., Austin</em></p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_7HBe4j": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "text": "<p>“I’ve tried shots, meds — these drops changed the game.” — Trevor D., Nashville</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_MmctcW": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "text": "<p>“The consult was quick and easy, and I had my drops within a week.” — <em>Lisa K., Dallas</em></p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_nwybYG",
+        "column_7HBe4j",
+        "column_MmctcW"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "What Our Patients are Saying",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collapsible_content_Ue7EXN": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_MzYnJ4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do allergy drops really work?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Sublingual immunotherapy is clinically proven and often used as an alternative to allergy shots.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_WBLf4N": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is this covered by insurance?",
+            "icon": "question_mark",
+            "row_content": "<p>Not yet. AlleDrops operates as a self-pay service to keep things affordable and flexible.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_XYcXhE": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long until I see results?",
+            "icon": "question_mark",
+            "row_content": "<p>Many users report improvements within 4–6 weeks of consistent use.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_MzYnJ4",
+        "collapsible_row_WBLf4N",
+        "collapsible_row_XYcXhE"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "Frequently Asked Questions",
+        "heading": "Common Questions & Answers",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "layout": "section",
+        "container_color_scheme": "scheme-4",
+        "color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "image_banner_jj84xi",
+    "multicolumn_wVmkbC",
+    "featured-collection",
+    "image_with_text_6AETTc",
+    "multicolumn_iKtthN",
+    "collapsible_content_Ue7EXN"
   ]
 }

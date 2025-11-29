@@ -1,0 +1,141 @@
+{%- comment -%}
+  Regional Allergy Info Section
+  Displays metaobject data attached to product variants
+{%- endcomment -%}
+
+{{ 'section-regional-info.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<regional-info class="regional-info-wrapper section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    <div id="RegionalInfo-{{ section.id }}" 
+         class="regional-info-container" 
+         data-section-id="{{ section.id }}"
+         data-product-id="{{ product.id }}">
+      
+      {%- render 'regional-info-content',
+        product: product,
+        show_heading: section.settings.show_heading,
+        heading: section.settings.heading,
+        compact: false
+      -%}
+    </div>
+  </div>
+</regional-info>
+
+<script>
+  if (!customElements.get('regional-info')) {
+    class RegionalInfo extends HTMLElement {
+      constructor() {
+        super();
+        this.container = this.querySelector('.regional-info-container');
+        if (!this.container) return;
+        
+        // Metafield is now at product level, so content is static
+        // Just set up cart properties on page load
+        if (!window.Shopify?.designMode) {
+          this.updateCartProperties();
+        }
+      }
+      
+      updateCartProperties() {
+        // Find all regional info property inputs
+        const propertyInputs = this.container.querySelectorAll('.regional-info-property');
+        
+        // Find the product form
+        const productForm = document.querySelector('form[action*="/cart/add"]');
+        if (!productForm) return;
+        
+        // Remove old regional info properties from form
+        productForm.querySelectorAll('input[name^="properties["]').forEach(input => {
+          if (input.name.includes('Regional Formula') || 
+              input.name.includes('Region Slug') || 
+              input.name.includes('Formula States')) {
+            input.remove();
+          }
+        });
+        
+        // Clone and append new properties to form
+        propertyInputs.forEach(input => {
+          const clone = input.cloneNode(true);
+          productForm.appendChild(clone);
+        });
+      }
+    }
+    
+    customElements.define('regional-info', RegionalInfo);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Regional Allergy Info",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_debug",
+      "label": "Show debug info (for troubleshooting)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Regional Formula"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Regional Allergy Info"
+    }
+  ]
+}
+{% endschema %}
+
