@@ -1,0 +1,255 @@
+/* Regional Info Section - Minimal styles, inherits from Sense theme */
+
+/* Container */
+.regional-info-container {
+  position: relative;
+}
+
+/* Loading State */
+.regional-info-container--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.regional-info-container--loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin: -1rem 0 0 -1rem;
+  border: 0.2rem solid rgba(var(--color-foreground), 0.2);
+  border-top-color: rgb(var(--color-foreground));
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  z-index: 1;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Main Card */
+.regional-info-card {
+  background: rgb(var(--color-background));
+  border: calc(var(--border-width) + 0.05rem) solid rgba(var(--color-foreground), var(--border-opacity));
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-horizontal-offset) var(--shadow-vertical-offset) var(--shadow-blur-radius) rgba(var(--color-shadow), var(--shadow-opacity));
+  transition: box-shadow var(--duration-default);
+}
+
+.regional-info-card--compact {
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  background: rgba(var(--color-foreground), 0.02);
+  box-shadow: none;
+}
+
+.regional-info-card:not(.regional-info-card--compact):hover {
+  box-shadow: var(--shadow-horizontal-offset) calc(var(--shadow-vertical-offset) + 0.2rem) calc(var(--shadow-blur-radius) * 1.2) rgba(var(--color-shadow), calc(var(--shadow-opacity) * 1.2));
+}
+
+/* Heading - Inherits from theme */
+.regional-info-heading {
+  margin-bottom: 1.5rem;
+}
+
+/* Content Layout */
+.regional-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Region Badge */
+.region-name-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(var(--color-foreground), 0.05);
+  border-radius: calc(var(--border-radius) * 2);
+  font-weight: 600;
+  width: fit-content;
+}
+
+.region-name-badge .icon-wrapper {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.region-name-badge--compact {
+  padding: 0.5rem 1rem;
+}
+
+/* Formula Description - Inherits rte styles */
+.formula-description {
+  opacity: 0.85;
+}
+
+/* Collapsible Sections */
+.allergens-section,
+.states-section {
+  border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: rgba(var(--color-foreground), 0.02);
+  transition: border-color var(--duration-default);
+}
+
+.allergens-section[open],
+.states-section[open] {
+  border-color: rgba(var(--color-foreground), 0.15);
+}
+
+/* Summary Styles */
+.allergens-summary,
+.states-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  transition: background var(--duration-default);
+  user-select: none;
+}
+
+.allergens-summary:hover,
+.states-summary:hover {
+  background: rgba(var(--color-foreground), 0.04);
+}
+
+.allergens-summary::-webkit-details-marker,
+.states-summary::-webkit-details-marker {
+  display: none;
+}
+
+.allergens-summary .icon-emoji,
+.states-summary .icon-emoji {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.allergens-summary .summary-text,
+.states-summary .summary-text {
+  flex: 1;
+}
+
+.allergens-summary .icon-caret,
+.states-summary .icon-caret {
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform var(--duration-default);
+}
+
+.allergens-summary .icon-caret svg,
+.states-summary .icon-caret svg {
+  fill: currentColor;
+}
+
+details[open] > summary .icon-caret {
+  transform: rotate(180deg);
+}
+
+/* Animated Content */
+.allergens-content,
+.states-content {
+  padding: 0 1.5rem 1.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Allergens List */
+.allergens-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 0.75rem;
+}
+
+.allergens-list li {
+  padding: 0.5rem 0.75rem 0.5rem 2rem;
+  background: rgb(var(--color-background));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.15);
+  border-radius: calc(var(--border-radius) * 0.5);
+  position: relative;
+}
+
+.allergens-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0.75rem;
+  opacity: 0.5;
+}
+
+/* States Pills */
+.states-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.state-pill {
+  padding: 0.5rem 1rem;
+  background: rgb(var(--color-background));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  border-radius: calc(var(--border-radius) * 2);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all var(--duration-default);
+}
+
+.state-pill:hover {
+  background: rgba(var(--color-foreground), 0.05);
+  border-color: rgba(var(--color-foreground), 0.3);
+}
+
+.state-pill--compact {
+  padding: 0.4rem 0.8rem;
+}
+
+/* Empty State */
+.regional-info-empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media screen and (max-width: 749px) {
+  .regional-info-card {
+    padding: 1.5rem;
+  }
+  
+  .regional-info-content {
+    gap: 1rem;
+  }
+  
+  .allergens-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .regional-info-card {
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+}
+
