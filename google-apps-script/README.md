@@ -134,7 +134,32 @@ The script automatically creates these columns in order:
 
 ### Issue: CORS errors in browser console
 
-**Solution**: Make sure web app is deployed with "Anyone" access, not "Only myself"
+**Symptoms**: 
+- Console shows "Access to fetch... has been blocked by CORS policy"
+- "No 'Access-Control-Allow-Origin' header is present"
+
+**Solutions**:
+
+1. **Redeploy the web app** (most common fix):
+   - Go to Apps Script → **Deploy** → **Manage deployments**
+   - Click the pencil icon ✏️ next to your deployment
+   - Under **Version**, select **New version**
+   - Make sure **Who has access** is set to **Anyone**
+   - Click **Deploy**
+   - Test again
+
+2. **Use Cloudflare Worker proxy** (recommended for production):
+   - Deploy the Cloudflare Worker with `GOOGLE_SHEETS_WEB_APP_URL` environment variable
+   - Configure the Cloudflare Worker URL in Shopify theme settings
+   - The quiz will automatically use the proxy, eliminating CORS issues
+   - See `cloudflare-worker/README.md` for setup instructions
+
+3. **Verify deployment settings**:
+   - **Execute as**: Must be "Me" (your Google account)
+   - **Who has access**: Must be "Anyone" (not "Only myself")
+   - These settings are critical for CORS to work
+
+**Note**: Google Apps Script web apps sometimes have CORS issues even when deployed correctly. Using the Cloudflare Worker proxy is the most reliable solution for production environments.
 
 ## Security Notes
 

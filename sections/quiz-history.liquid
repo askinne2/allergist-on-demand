@@ -1,0 +1,372 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="quiz-history-page section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- unless customer -%}
+      {%- comment -%} Not logged in - show login prompt {%- endcomment -%}
+      <div class="quiz-history-login-prompt">
+        <h1 class="quiz-history-page__title">{{ section.settings.login_title | default: 'View Your Assessment History' }}</h1>
+        <p class="quiz-history-page__subtitle">{{ section.settings.login_text | default: 'Please log in to view your symptom assessment history.' }}</p>
+        <div class="quiz-history-actions">
+          <a href="{{ routes.account_login_url }}" class="button">{{ 'customer.log_in' | t }}</a>
+          {%- if shop.customer_accounts_enabled == false -%}
+            <a href="{{ routes.account_register_url }}" class="button button--secondary">{{ 'customer.register.title' | t }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- else -%}
+      {%- comment -%} Logged in - show quiz history {%- endcomment -%}
+      <div class="quiz-history-page__header">
+        <h1 class="quiz-history-page__title">{{ section.settings.page_title | default: 'Symptom Assessment History' }}</h1>
+        <p class="quiz-history-page__subtitle">{{ section.settings.page_subtitle | default: 'View your past symptom assessments and track your progress over time.' }}</p>
+      </div>
+
+      {%- liquid
+        assign quiz_history_raw = customer.metafields.alledrops.quiz_history.value
+        assign latest_profile_id = customer.metafields.alledrops.symptom_profile_id.value
+        assign latest_score = customer.metafields.alledrops.quiz_score.value
+        assign latest_severity = customer.metafields.alledrops.severity_level.value
+        assign latest_date = customer.metafields.alledrops.quiz_date.value
+        assign latest_region = customer.metafields.alledrops.quiz_region.value
+        assign has_quiz_data = false
+        if quiz_history_raw != blank or latest_profile_id != blank
+          assign has_quiz_data = true
+        endif
+        comment
+          Convert Ruby hash syntax to JSON if needed
+          Liquid outputs JSON metafields as Ruby hash strings, so we need to convert => to :
+        endcomment
+        if quiz_history_raw != blank
+          assign quiz_history_json = quiz_history_raw | replace: '=>', ':' | replace: 'nil', 'null'
+        endif
+      -%}
+      
+      {%- if has_quiz_data -%}
+        <div class="customer__quiz-history">
+          {%- if quiz_history_json != blank -%}
+            <div 
+              class="quiz-history-list" 
+              data-quiz-history-loaded="false"
+            >
+              <p class="quiz-history-loading">Loading assessment history...</p>
+            </div>
+            <script type="application/json" id="quiz-history-data">{{ quiz_history_json }}</script>
+          {%- elsif latest_profile_id != blank -%}
+            {%- comment -%} Fallback: Show latest quiz if history doesn't exist {%- endcomment -%}
+            <div class="quiz-history-list">
+              <div class="quiz-history-item">
+                <div class="quiz-history-item__header">
+                  <h3>Latest Assessment</h3>
+                  {%- if latest_date != blank -%}
+                    <span class="quiz-history-item__date">
+                      {{ latest_date | date: "%B %d, %Y" }}
+                    </span>
+                  {%- endif -%}
+                </div>
+                <div class="quiz-history-item__details">
+                  {%- if latest_score != blank -%}
+                    <div class="quiz-history-item__score">
+                      <span class="score-label">Score:</span>
+                      <span class="score-value">{{ latest_score }}/60</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if latest_severity != blank -%}
+                    <div class="quiz-history-item__severity severity-{{ latest_severity }}">
+                      <span class="severity-label">Severity:</span>
+                      <span class="severity-value">{{ latest_severity | capitalize }}</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if latest_region != blank -%}
+                    <div class="quiz-history-item__region">
+                      <span class="region-label">Region:</span>
+                      <span class="region-value">{{ latest_region }}</span>
+                    </div>
+                  {%- endif -%}
+                  <div class="quiz-history-item__profile-id">
+                    <span class="profile-label">Profile ID:</span>
+                    <code class="profile-value">{{ latest_profile_id }}</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+          
+          <div class="quiz-history-actions">
+            <a href="/pages/symptom-quiz" class="button">{{ section.settings.retake_btn_text | default: 'Take New Assessment' }}</a>
+            <a href="{{ routes.account_url }}" class="button button--secondary">{{ section.settings.back_to_account_text | default: 'Back to Account' }}</a>
+          </div>
+        </div>
+      {%- else -%}
+        {%- comment -%} No quiz data - show empty state {%- endcomment -%}
+        <div class="quiz-history-empty">
+          <h2>{{ section.settings.empty_title | default: 'No Assessments Yet' }}</h2>
+          <p>{{ section.settings.empty_text | default: "You haven't completed any symptom assessments yet. Take your first assessment to get personalized recommendations." }}</p>
+          <div class="quiz-history-actions">
+            <a href="/pages/symptom-quiz" class="button">{{ section.settings.take_first_quiz_text | default: 'Take Assessment' }}</a>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+</div>
+
+{%- comment -%} Quiz History JavaScript - Minimal JS for JSON parsing {%- endcomment -%}
+<script>
+  (function() {
+    const historyContainer = document.querySelector('[data-quiz-history-loaded]');
+    if (!historyContainer || historyContainer.dataset.quizHistoryLoaded === 'true') {
+      return;
+    }
+
+    try {
+      // Get JSON from script tag instead of data attribute to avoid escaping issues
+      const jsonScript = document.getElementById('quiz-history-data');
+      if (!jsonScript) {
+        historyContainer.innerHTML = '<p>No assessment history found.</p>';
+        return;
+      }
+
+      let historyJson = jsonScript.textContent.trim();
+      if (!historyJson) {
+        historyContainer.innerHTML = '<p>No assessment history found.</p>';
+        return;
+      }
+
+      // Handle case where JSON might be double-encoded or have extra quotes
+      // Remove surrounding quotes if present
+      if ((historyJson.startsWith('"') && historyJson.endsWith('"')) || 
+          (historyJson.startsWith("'") && historyJson.endsWith("'"))) {
+        historyJson = historyJson.slice(1, -1);
+        // Unescape any escaped quotes
+        historyJson = historyJson.replace(/\\"/g, '"').replace(/\\'/g, "'");
+      }
+
+      // Convert Ruby hash syntax to JSON if present (Liquid sometimes outputs => instead of :)
+      // This handles cases where Liquid outputs metafields as Ruby hash strings
+      if (historyJson.includes('=>')) {
+        historyJson = historyJson.replace(/=>/g, ':');
+        // Also handle nil -> null conversion
+        historyJson = historyJson.replace(/nil/g, 'null');
+      }
+
+      // Check if it's multiple objects concatenated (not a proper array)
+      // If it starts with { but not [, wrap it in an array
+      if (historyJson.trim().startsWith('{') && !historyJson.trim().startsWith('[')) {
+        // Try to split by }{ and wrap in array brackets
+        // But first, check if it's already multiple objects
+        const objectMatches = historyJson.match(/\{[^}]+\}/g);
+        if (objectMatches && objectMatches.length > 1) {
+          historyJson = '[' + objectMatches.join(',') + ']';
+        } else {
+          // Single object, wrap in array
+          historyJson = '[' + historyJson + ']';
+        }
+      }
+
+      // Debug: log the JSON string to help diagnose issues
+      console.log('Quiz history JSON string:', historyJson.substring(0, 100) + '...');
+
+      let history;
+      try {
+        history = JSON.parse(historyJson);
+      } catch (parseError) {
+        console.error('Error parsing quiz history:', parseError);
+        console.error('JSON string (first 200 chars):', historyJson.substring(0, 200));
+        // Try to fix common JSON issues
+        try {
+          // Remove any HTML entities that might have been encoded
+          historyJson = historyJson.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+          history = JSON.parse(historyJson);
+        } catch (secondError) {
+          historyContainer.innerHTML = '<p>Unable to load assessment history. The data format is invalid.</p>';
+          return;
+        }
+      }
+      if (!Array.isArray(history) || history.length === 0) {
+        historyContainer.innerHTML = '<p>You haven\'t completed any symptom assessments yet.</p><a href="/pages/symptom-quiz" class="button">Take Assessment</a>';
+        return;
+      }
+
+      const severityLabels = {
+        minimal: 'Minimal',
+        mild: 'Mild',
+        moderate: 'Moderate',
+        severe: 'Severe'
+      };
+
+      const historyHTML = history.map((quiz, index) => {
+        const date = quiz.date ? new Date(quiz.date) : null;
+        const formattedDate = date ? date.toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        }) : 'Date not available';
+        
+        return `
+          <div class="quiz-history-item">
+            <div class="quiz-history-item__header">
+              <h3>Assessment #${index + 1}</h3>
+              <span class="quiz-history-item__date">${formattedDate}</span>
+            </div>
+            <div class="quiz-history-item__details">
+              ${quiz.score != null ? `
+                <div class="quiz-history-item__score">
+                  <span class="score-label">Score:</span>
+                  <span class="score-value">${quiz.score}/60</span>
+                </div>
+              ` : ''}
+              ${quiz.severity ? `
+                <div class="quiz-history-item__severity severity-${quiz.severity}">
+                  <span class="severity-label">Severity:</span>
+                  <span class="severity-value">${severityLabels[quiz.severity] || quiz.severity}</span>
+                </div>
+              ` : ''}
+              ${quiz.region ? `
+                <div class="quiz-history-item__region">
+                  <span class="region-label">Region:</span>
+                  <span class="region-value">${quiz.region}</span>
+                </div>
+              ` : ''}
+              ${quiz.profile_id ? `
+                <div class="quiz-history-item__profile-id">
+                  <span class="profile-label">Profile ID:</span>
+                  <code class="profile-value">${quiz.profile_id}</code>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      historyContainer.innerHTML = historyHTML;
+      historyContainer.dataset.quizHistoryLoaded = 'true';
+    } catch (error) {
+      console.error('Error parsing quiz history:', error);
+      historyContainer.innerHTML = '<p>Unable to load assessment history. Please try again later.</p>';
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Quiz History",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Content"
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Page Title",
+      "default": "Symptom Assessment History"
+    },
+    {
+      "type": "textarea",
+      "id": "page_subtitle",
+      "label": "Page Subtitle",
+      "default": "View your past symptom assessments and track your progress over time."
+    },
+    {
+      "type": "header",
+      "content": "Login Prompt (when not logged in)"
+    },
+    {
+      "type": "text",
+      "id": "login_title",
+      "label": "Login Title",
+      "default": "View Your Assessment History"
+    },
+    {
+      "type": "textarea",
+      "id": "login_text",
+      "label": "Login Text",
+      "default": "Please log in to view your symptom assessment history."
+    },
+    {
+      "type": "header",
+      "content": "Empty State (no quiz data)"
+    },
+    {
+      "type": "text",
+      "id": "empty_title",
+      "label": "Empty State Title",
+      "default": "No Assessments Yet"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_text",
+      "label": "Empty State Text",
+      "default": "You haven't completed any symptom assessments yet. Take your first assessment to get personalized recommendations."
+    },
+    {
+      "type": "text",
+      "id": "take_first_quiz_text",
+      "label": "Take First Quiz Button Text",
+      "default": "Take Assessment"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "retake_btn_text",
+      "label": "Retake Assessment Button Text",
+      "default": "Take New Assessment"
+    },
+    {
+      "type": "text",
+      "id": "back_to_account_text",
+      "label": "Back to Account Button Text",
+      "default": "Back to Account"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz History"
+    }
+  ]
+}
+{% endschema %}
+

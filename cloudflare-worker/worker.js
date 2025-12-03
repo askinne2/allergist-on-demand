@@ -1,12 +1,13 @@
 /**
  * Cloudflare Worker for AlleDrops Symptom Quiz
  * Proxies customer metafield updates to Shopify Admin API
+ * Also proxies Google Sheets submissions to handle CORS issues
  * 
  * This worker receives quiz summary data and updates customer metafields in Shopify.
  * It acts as a secure proxy to avoid exposing Shopify Admin API credentials in the browser.
  * 
  * @author AlleDrops Development Team
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 /**
@@ -14,6 +15,7 @@
  * - SHOPIFY_STORE_DOMAIN: Your Shopify store domain (e.g., allergist-on-demand.myshopify.com)
  * - SHOPIFY_ACCESS_TOKEN: Admin API access token with write_customers permission
  * - ALLOWED_ORIGINS: Comma-separated list of allowed origins for CORS
+ * - GOOGLE_SHEETS_WEB_APP_URL: Google Apps Script web app URL (optional, for Google Sheets proxy)
  */
 
 /**
@@ -29,20 +31,28 @@ addEventListener('fetch', event => {
  * @returns {Response} Response object
  */
 async function handleRequest(request) {
+  const url = new URL(request.url);
+  const origin = request.headers.get('Origin');
+  
   // Handle CORS preflight
   if (request.method === 'OPTIONS') {
     return handleCORS(request);
   }
   
+  // Route to Google Sheets proxy if path matches
+  if (url.pathname === '/api/google-sheets' || url.pathname.endsWith('/google-sheets')) {
+    return handleGoogleSheetsProxy(request, origin);
+  }
+  
+  // Default: Handle Shopify metafield updates
   // Only accept POST requests
   if (request.method !== 'POST') {
-    return jsonResponse({ error: 'Method not allowed' }, 405);
+    return jsonResponse({ error: 'Method not allowed' }, 405, origin);
   }
   
   // Check origin
-  const origin = request.headers.get('Origin');
   if (!isAllowedOrigin(origin)) {
-    return jsonResponse({ error: 'Origin not allowed' }, 403);
+    return jsonResponse({ error: 'Origin not allowed' }, 403, origin);
   }
   
   try {
@@ -52,21 +62,24 @@ async function handleRequest(request) {
     // Validate required fields
     const validation = validateRequestData(data);
     if (!validation.valid) {
-      return jsonResponse({ error: validation.error }, 400);
+      return jsonResponse({ error: validation.error }, 400, origin);
     }
     
     // Find or create customer in Shopify
     const customer = await findOrCreateCustomer(data.email);
     
     if (!customer) {
-      return jsonResponse({ error: 'Failed to find or create customer' }, 500);
+      return jsonResponse({ error: 'Failed to find or create customer' }, 500, origin);
     }
     
-    // Update customer metafields
-    const result = await updateCustomerMetafields(customer.id, data);
+    // Get existing quiz history before updating
+    const existingHistory = await getCustomerMetafield(customer.id, 'alledrops', 'quiz_history');
+    
+    // Update customer metafields (includes latest quiz + history)
+    const result = await updateCustomerMetafields(customer.id, data, existingHistory);
     
     if (!result.success) {
-      return jsonResponse({ error: result.error }, 500);
+      return jsonResponse({ error: result.error }, 500, origin);
     }
     
     return jsonResponse({
@@ -80,7 +93,7 @@ async function handleRequest(request) {
     return jsonResponse({ 
       error: 'Internal server error',
       details: error.message 
-    }, 500);
+    }, 500, origin);
   }
 }
 
@@ -167,8 +180,7 @@ async function findOrCreateCustomer(email) {
   
   const createResponse = await shopifyGraphQL(createMutation, {
     input: {
-      email: email,
-      acceptsMarketing: false
+      email: email
     }
   });
   
@@ -181,12 +193,46 @@ async function findOrCreateCustomer(email) {
 }
 
 /**
+ * Get a specific customer metafield
+ * @param {string} customerId - Shopify customer GID
+ * @param {string} namespace - Metafield namespace
+ * @param {string} key - Metafield key
+ * @returns {Promise<string|null>} Metafield value or null
+ */
+async function getCustomerMetafield(customerId, namespace, key) {
+  const query = `
+    query getCustomerMetafield($customerId: ID!, $namespace: String!, $key: String!) {
+      customer(id: $customerId) {
+        metafield(namespace: $namespace, key: $key) {
+          value
+        }
+      }
+    }
+  `;
+  
+  try {
+    const response = await shopifyGraphQL(query, {
+      customerId: customerId,
+      namespace: namespace,
+      key: key
+    });
+    
+    return response.data.customer?.metafield?.value || null;
+  } catch (error) {
+    console.error('Error fetching metafield:', error);
+    return null;
+  }
+}
+
+/**
  * Update customer metafields
+ * Stores both latest quiz data and quiz history
  * @param {string} customerId - Shopify customer GID
  * @param {Object} data - Metafield data
+ * @param {string|null} existingHistoryJson - Existing quiz_history JSON string
  * @returns {Promise<Object>} Update result
  */
-async function updateCustomerMetafields(customerId, data) {
+async function updateCustomerMetafields(customerId, data, existingHistoryJson) {
   const mutation = `
     mutation setCustomerMetafields($metafields: [MetafieldsSetInput!]!) {
       metafieldsSet(metafields: $metafields) {
@@ -204,7 +250,39 @@ async function updateCustomerMetafields(customerId, data) {
     }
   `;
   
+  // Parse existing quiz history or create empty array
+  let quizHistory = [];
+  if (existingHistoryJson) {
+    try {
+      quizHistory = JSON.parse(existingHistoryJson);
+      if (!Array.isArray(quizHistory)) {
+        quizHistory = [];
+      }
+    } catch (e) {
+      console.warn('Failed to parse existing quiz history, starting fresh');
+      quizHistory = [];
+    }
+  }
+  
+  // Add new quiz entry to history (store minimal data - full data is in Google Sheets)
+  const quizEntry = {
+    profile_id: data.symptom_profile_id,
+    date: data.quiz_date || new Date().toISOString(),
+    score: data.quiz_score,
+    severity: data.severity_level,
+    region: data.quiz_region
+  };
+  
+  // Add to beginning of array (most recent first)
+  quizHistory.unshift(quizEntry);
+  
+  // Limit history to last 50 quizzes to prevent metafield size issues
+  if (quizHistory.length > 50) {
+    quizHistory = quizHistory.slice(0, 50);
+  }
+  
   const metafields = [
+    // Latest quiz data (for quick access)
     {
       ownerId: customerId,
       namespace: 'alledrops',
@@ -239,6 +317,14 @@ async function updateCustomerMetafields(customerId, data) {
       key: 'severity_level',
       type: 'single_line_text_field',
       value: data.severity_level
+    },
+    // Quiz history (array of quiz references)
+    {
+      ownerId: customerId,
+      namespace: 'alledrops',
+      key: 'quiz_history',
+      type: 'json',
+      value: JSON.stringify(quizHistory)
     }
   ];
   
@@ -253,7 +339,10 @@ async function updateCustomerMetafields(customerId, data) {
     };
   }
   
-  return { success: true };
+  return { 
+    success: true,
+    historyCount: quizHistory.length
+  };
 }
 
 /**
@@ -301,7 +390,29 @@ function isAllowedOrigin(origin) {
   // Allow any origin if ALLOWED_ORIGINS is '*'
   if (allowedOrigins.includes('*')) return true;
   
-  return allowedOrigins.includes(origin);
+  // Allow localhost and 127.0.0.1 for local development
+  try {
+    const originUrl = new URL(origin);
+    if (originUrl.hostname === 'localhost' || originUrl.hostname === '127.0.0.1') {
+      return true;
+    }
+  } catch (e) {
+    // Invalid URL, continue with exact match check
+  }
+  
+  // Check exact match
+  if (allowedOrigins.includes(origin)) return true;
+  
+  // Check if origin matches any allowed pattern (for wildcard support)
+  for (const allowed of allowedOrigins) {
+    if (allowed.includes('*')) {
+      const pattern = allowed.replace(/\*/g, '.*');
+      const regex = new RegExp(`^${pattern}$`);
+      if (regex.test(origin)) return true;
+    }
+  }
+  
+  return false;
 }
 
 /**
@@ -320,11 +431,73 @@ function handleCORS(request) {
     status: 204,
     headers: {
       'Access-Control-Allow-Origin': origin,
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Max-Age': '86400'
     }
   });
+}
+
+/**
+ * Handle Google Sheets proxy requests
+ * Proxies requests to Google Apps Script web app to handle CORS
+ * @param {Request} request - Incoming request
+ * @param {string} origin - Request origin
+ * @returns {Response} Response object
+ */
+async function handleGoogleSheetsProxy(request, origin) {
+  // Check origin
+  if (!isAllowedOrigin(origin)) {
+    return jsonResponse({ error: 'Origin not allowed' }, 403, origin);
+  }
+  
+  // Only accept POST requests
+  if (request.method !== 'POST') {
+    return jsonResponse({ error: 'Method not allowed' }, 405, origin);
+  }
+  
+  const googleSheetsUrl = GOOGLE_SHEETS_WEB_APP_URL;
+  
+  if (!googleSheetsUrl) {
+    return jsonResponse({ 
+      error: 'Google Sheets Web App URL not configured' 
+    }, 500, origin);
+  }
+  
+  try {
+    // Get request body
+    const body = await request.text();
+    
+    // Forward request to Google Apps Script
+    const response = await fetch(googleSheetsUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body
+    });
+    
+    // Get response text
+    const responseText = await response.text();
+    
+    // Parse JSON if possible
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch (e) {
+      responseData = { raw: responseText };
+    }
+    
+    // Return response with CORS headers
+    return jsonResponse(responseData, response.status, origin);
+    
+  } catch (error) {
+    console.error('Google Sheets proxy error:', error);
+    return jsonResponse({ 
+      error: 'Failed to proxy request to Google Sheets',
+      details: error.message 
+    }, 500, origin);
+  }
 }
 
 /**
@@ -341,6 +514,8 @@ function jsonResponse(data, status = 200, origin = null) {
   
   if (origin && isAllowedOrigin(origin)) {
     headers['Access-Control-Allow-Origin'] = origin;
+    headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS';
+    headers['Access-Control-Allow-Headers'] = 'Content-Type';
   }
   
   return new Response(JSON.stringify(data), { status, headers });

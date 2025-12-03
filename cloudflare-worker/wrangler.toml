@@ -1,0 +1,7 @@
+name = "alledrops-quiz-worker"
+main = "worker.js"
+account_id = "8791884c53a2f36190a69764ee168b96"
+compatibility_date = "2024-01-01"
+
+[vars]
+ALLOWED_ORIGINS = "*"

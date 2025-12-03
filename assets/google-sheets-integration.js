@@ -37,9 +37,19 @@ class GoogleSheetsIntegration {
     
     try {
       const rowData = GoogleSheetsIntegration.prepareRowData(data);
-      const url = config.googleSheetsWebAppUrl;
       
-      console.log('Submitting to Google Sheets:', url);
+      // Use Cloudflare Worker proxy if available (handles CORS properly)
+      // Otherwise, use Google Apps Script URL directly
+      let url;
+      if (config.cloudflareWorkerUrl) {
+        // Use Cloudflare Worker proxy endpoint
+        url = config.cloudflareWorkerUrl.replace(/\/$/, '') + '/api/google-sheets';
+        console.log('Submitting to Google Sheets via Cloudflare Worker proxy:', url);
+      } else {
+        // Use Google Apps Script URL directly (may have CORS issues)
+        url = config.googleSheetsWebAppUrl;
+        console.log('Submitting to Google Sheets directly:', url);
+      }
       
       const response = await fetch(url, {
         method: 'POST',
@@ -66,8 +76,9 @@ class GoogleSheetsIntegration {
     } catch (error) {
       console.error('Google Sheets submission error:', error);
       
-      // Retry logic for network errors
-      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+      // Retry logic for network errors (but not CORS errors)
+      if ((error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) && 
+          !error.message.includes('CORS')) {
         console.log('Network error, retrying in 2 seconds...');
         await GoogleSheetsIntegration.delay(2000);
         return GoogleSheetsIntegration.submitResponses(data, config);
@@ -133,10 +144,7 @@ class GoogleSheetsIntegration {
       
       // Demographics
       responses.timing_seasonal || '',
-      responses.timing_duration || '',
-      
-      // Full Response JSON
-      JSON.stringify(responses, null, 2)
+      responses.timing_duration || ''
     ];
   }
 

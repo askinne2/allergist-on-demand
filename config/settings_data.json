@@ -190,7 +190,7 @@
       "scheme-1": {
         "settings": {
           "background": "#e5f4ed",
-          "background_gradient": "linear-gradient(180deg, rgba(229, 244, 237, 1), rgba(126, 200, 164, 1) 100%)",
+          "background_gradient": "linear-gradient(180deg, #e5f4ed, #FDFBF7 100%)",
           "text": "#2e2a39",
           "button": "#2c3e3f",
           "button_label": "#fdfbf7",

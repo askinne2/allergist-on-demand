@@ -1,7 +1,23 @@
 <div class="{% if section.settings.include_margins %}page-width{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-  {%- for block in section.blocks -%}
-    {% render block %}
-  {%- endfor -%}
+  {%- if section.blocks.size > 0 -%}
+    {%- comment -%} App blocks are available, render them {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {% render block %}
+    {%- endfor -%}
+  {%- else -%}
+    {%- comment -%} Fallback: No app blocks configured {%- endcomment -%}
+    <div style="padding: 4rem 2rem; text-align: center;">
+      <div style="max-width: 600px; margin: 0 auto;">
+        <h1 style="margin-bottom: 1rem;">AlleDrops Symptom Assessment</h1>
+        <p style="margin-bottom: 2rem; color: #666;">
+          The quiz application is currently being configured. Please check back soon or contact support if you need assistance.
+        </p>
+        <p style="font-size: 0.875rem; color: #999;">
+          <strong>Note:</strong> If you're a store administrator, make sure the AlleDrops Quiz App is installed and the quiz block is added to this page in the theme customizer.
+        </p>
+      </div>
+    </div>
+  {%- endif -%}
 </div>
 
 {% schema %}

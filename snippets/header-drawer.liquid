@@ -22,6 +22,16 @@
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
+                {%- comment -%} Hide Quiz History if customer is not logged in {%- endcomment -%}
+                {%- liquid
+                  assign is_quiz_history = false
+                  if link.url contains '/pages/quiz-history' or link.handle == 'quiz-history'
+                    assign is_quiz_history = true
+                  endif
+                -%}
+                {%- if is_quiz_history and customer == blank -%}
+                  {%- continue -%}
+                {%- endif -%}
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
@@ -51,6 +61,16 @@
                           </button>
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
                             {%- for childlink in link.links -%}
+                              {%- comment -%} Hide Quiz History if customer is not logged in {%- endcomment -%}
+                              {%- liquid
+                                assign is_quiz_history_child = false
+                                if childlink.url contains '/pages/quiz-history' or childlink.handle == 'quiz-history'
+                                  assign is_quiz_history_child = true
+                                endif
+                              -%}
+                              {%- if is_quiz_history_child and customer == blank -%}
+                                {%- continue -%}
+                              {%- endif -%}
                               <li>
                                 {%- if childlink.links == blank -%}
                                   <a
@@ -96,6 +116,16 @@
                                         tabindex="-1"
                                       >
                                         {%- for grandchildlink in childlink.links -%}
+                                          {%- comment -%} Hide Quiz History if customer is not logged in {%- endcomment -%}
+                                          {%- liquid
+                                            assign is_quiz_history_grandchild = false
+                                            if grandchildlink.url contains '/pages/quiz-history' or grandchildlink.handle == 'quiz-history'
+                                              assign is_quiz_history_grandchild = true
+                                            endif
+                                          -%}
+                                          {%- if is_quiz_history_grandchild and customer == blank -%}
+                                            {%- continue -%}
+                                          {%- endif -%}
                                           <li>
                                             <a
                                               id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"

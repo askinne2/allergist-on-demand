@@ -1,5 +1,11 @@
 {{ 'symptom-quiz.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  if section.settings.color_scheme == section.settings.section_color_scheme
+    assign remove_color_classes = true
+  endif
+-%}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -14,7 +20,7 @@
   }
 {%- endstyle -%}
 
-<div class="symptom-quiz-wrapper section-{{ section.id }}-padding">
+<div class="symptom-quiz-wrapper section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
   <div class="page-width">
     
     {%- comment -%} Quiz Header {%- endcomment -%}
@@ -39,7 +45,7 @@
     </div>
 
     {%- comment -%} Quiz Form Container {%- endcomment -%}
-    <div class="symptom-quiz" data-symptom-quiz>
+    <div class="symptom-quiz{% unless remove_color_classes %} gradient color-{{ section.settings.color_scheme }}{% endunless %}" data-symptom-quiz>
       
       {%- comment -%} Progress Indicator {%- endcomment -%}
       {% render 'quiz-progress', current: 1, total: 8 %}
@@ -103,6 +109,23 @@
         </div>
         
       </form>
+      
+      {%- comment -%} Test Button (Development Only) {%- endcomment -%}
+      {%- if section.settings.enable_test_mode -%}
+        <div class="symptom-quiz__test-mode" style="margin-top: 2rem; padding: 1rem; background: #f0f0f0; border-radius: 4px;">
+          <button 
+            type="button" 
+            class="symptom-quiz__btn symptom-quiz__btn--secondary" 
+            data-quiz-test
+            style="background: #ff6b6b; color: white;"
+          >
+            🧪 Test Mode: Auto-Complete Quiz
+          </button>
+          <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #666;">
+            This will automatically fill and submit the quiz with test data
+          </p>
+        </div>
+      {%- endif -%}
       
       {%- comment -%} Privacy Notice {%- endcomment -%}
       {%- if section.settings.privacy_policy_url != blank -%}
@@ -207,6 +230,13 @@
       "info": "If enabled, quiz will load questions from Shopify Metaobjects. Otherwise uses hardcoded questions."
     },
     {
+      "type": "checkbox",
+      "id": "enable_test_mode",
+      "label": "Enable Test Mode",
+      "default": false,
+      "info": "Shows a test button to auto-complete the quiz with sample data (for development/testing)"
+    },
+    {
       "type": "header",
       "content": "Privacy"
     },
@@ -214,6 +244,22 @@
       "type": "url",
       "id": "privacy_policy_url",
       "label": "Privacy Policy URL"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.colors.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.multirow.settings.container_color_scheme.label",
+      "default": "scheme-1"
     },
     {
       "type": "header",

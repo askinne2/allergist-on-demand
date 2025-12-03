@@ -7,10 +7,92 @@
  */
 
 /**
+ * Sample test data for preview mode
+ */
+const SAMPLE_DATA = {
+  severe: {
+    profileId: 'AOD_20251129_preview_severe',
+    score: 60,
+    severityLevel: 'severe',
+    region: 'northwest',
+    customerName: 'Test User',
+    customerEmail: 'test@example.com'
+  },
+  moderate: {
+    profileId: 'AOD_20251129_preview_moderate',
+    score: 25,
+    severityLevel: 'moderate',
+    region: 'southeast',
+    customerName: 'Test User',
+    customerEmail: 'test@example.com'
+  },
+  mild: {
+    profileId: 'AOD_20251129_preview_mild',
+    score: 8,
+    severityLevel: 'mild',
+    region: 'northeast',
+    customerName: 'Test User',
+    customerEmail: 'test@example.com'
+  },
+  minimal: {
+    profileId: 'AOD_20251129_preview_minimal',
+    score: 3,
+    severityLevel: 'minimal',
+    region: 'midwest',
+    customerName: 'Test User',
+    customerEmail: 'test@example.com'
+  }
+};
+
+/**
  * QuizResults Class
  * Manages the results display after quiz submission
  */
 class QuizResults {
+  /**
+   * Initialize preview mode if URL parameter is present
+   * Call this on page load to enable ?preview=severe, ?preview=moderate, etc.
+   */
+  static initPreviewMode() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const previewType = urlParams.get('preview') || urlParams.get('test');
+    
+    if (previewType && SAMPLE_DATA[previewType]) {
+      console.log(`🎨 Preview mode activated: ${previewType}`);
+      
+      // Hide quiz form
+      const quizWrapper = document.querySelector('[data-symptom-quiz]');
+      if (quizWrapper) {
+        quizWrapper.closest('.symptom-quiz-wrapper').style.display = 'none';
+      }
+      
+      // Show results section
+      const resultsWrapper = document.querySelector('[data-quiz-results]');
+      if (resultsWrapper) {
+        resultsWrapper.style.display = 'block';
+      }
+      
+      // Display sample data
+      QuizResults.displayResults(SAMPLE_DATA[previewType]);
+      
+      // Add preview indicator
+      const header = document.querySelector('.quiz-results__header');
+      if (header) {
+        const previewBadge = document.createElement('div');
+        previewBadge.style.cssText = `
+          background: rgba(255, 193, 7, 0.2);
+          border: 1px solid rgba(255, 193, 7, 0.5);
+          border-radius: 4px;
+          padding: 8px 16px;
+          margin-bottom: 16px;
+          font-size: 14px;
+          color: rgba(var(--color-foreground), 0.8);
+        `;
+        previewBadge.textContent = `🧪 Preview Mode: ${previewType.charAt(0).toUpperCase() + previewType.slice(1)} Symptoms`;
+        header.insertBefore(previewBadge, header.firstChild);
+      }
+    }
+  }
   /**
    * Display quiz results
    * @param {Object} data - Submission data containing score, region, severity, etc.
@@ -108,10 +190,21 @@ class QuizResults {
     QuizResults.hideElement('[data-results-education]');
     
     // Generate product handle
+    // Format: {region}-alledrops (e.g., northwest-alledrops, north-central-alledrops)
     const config = window.AlleDropsResultsConfig || {};
-    const handleFormat = config.productHandleFormat || '{region}-allergy-drops';
-    const productHandle = handleFormat.replace('{region}', region.replace('_', '-'));
+    const handleFormat = config.productHandleFormat || '{region}-alledrops';
     
+    // Convert region to handle format (replace underscores with hyphens)
+    // e.g., "north_central" -> "north-central", "northwest" -> "northwest"
+    const regionHandle = region.replace(/_/g, '-');
+    const productHandle = handleFormat.replace('{region}', regionHandle);
+    
+    console.log('Product lookup config:', {
+      region: region,
+      regionHandle: regionHandle,
+      handleFormat: handleFormat,
+      productHandle: productHandle
+    });
     console.log('Looking up product:', productHandle);
     
     try {
@@ -155,61 +248,138 @@ class QuizResults {
   }
 
   /**
-   * Render product card
-   * @param {Object} product - Product object from Shopify
+   * Render product card using Shopify's native card-product structure
+   * This matches the structure used in featured-collection sections
+   * @param {Object} product - Product object from Shopify JSON API
    * @param {HTMLElement} container - Container element
    */
   static renderProductCard(product, container) {
     const cardEl = container.querySelector('[data-product-card]');
     if (!cardEl) return;
     
-    const variant = product.variants[0];
-    const image = product.featured_image || (product.images && product.images[0]);
+    const variant = product.variants && product.variants[0];
+    const featuredImage = product.featured_image || (product.images && product.images[0]);
+    const compareAtPrice = variant && variant.compare_at_price ? QuizResults.formatMoney(variant.compare_at_price) : null;
     const price = variant ? QuizResults.formatMoney(variant.price) : '';
+    const onSale = variant && variant.compare_at_price && variant.compare_at_price > variant.price;
     
+    // Render using Shopify's card-product structure
+    // This matches the structure from snippets/card-product.liquid and featured-collection sections
     cardEl.innerHTML = `
-      <div class="quiz-results__product-content">
-        ${image ? `
-          <div class="quiz-results__product-image">
-            <img src="${image}" alt="${product.title}" loading="lazy">
-          </div>
-        ` : ''}
-        <div class="quiz-results__product-info">
-          <h4 class="quiz-results__product-name">${product.title}</h4>
-          ${product.description ? `
-            <div class="quiz-results__product-description">
-              ${QuizResults.truncateHtml(product.description, 150)}
+      <li class="grid__item">
+        <div class="card-wrapper product-card-wrapper underline-links-hover">
+          <div class="card card--standard ${featuredImage ? 'card--media' : 'card--text'}">
+            <div class="card__inner ratio" style="--ratio-percent: ${featuredImage ? '100' : '100'}%;">
+              ${featuredImage ? `
+                <div class="card__media">
+                  <div class="media media--transparent media--hover-effect">
+                    <img
+                      srcset="${featuredImage}?width=165 165w, ${featuredImage}?width=360 360w, ${featuredImage}?width=533 533w, ${featuredImage}?width=720 720w, ${featuredImage}?width=940 940w, ${featuredImage}?width=1066 1066w"
+                      src="${featuredImage}?width=533"
+                      sizes="(min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+                      alt="${product.title}"
+                      class="motion-reduce"
+                      loading="lazy"
+                      width="${product.featured_image_width || 533}"
+                      height="${product.featured_image_height || 533}"
+                    >
+                  </div>
+                </div>
+              ` : ''}
             </div>
-          ` : ''}
-          <div class="quiz-results__product-price">
-            <span class="quiz-results__price-amount">${price}</span>
+            <div class="card__content">
+              <div class="card__information">
+                <h3 class="card__heading h5">
+                  <a
+                    href="/products/${product.handle}"
+                    id="CardLink-quiz-results-${product.id}"
+                    class="full-unstyled-link"
+                    aria-labelledby="CardLink-quiz-results-${product.id}"
+                  >
+                    ${product.title}
+                  </a>
+                </h3>
+                <div class="card-information">
+                  ${QuizResults.renderPrice(price, compareAtPrice, onSale)}
+                </div>
+              </div>
+              ${variant ? `
+                <div class="card__quick-add">
+                  <button
+                    class="quick-add__submit button button--secondary"
+                    data-variant-id="${variant.id}"
+                    data-product-title="${product.title}"
+                    aria-haspopup="dialog"
+                  >
+                    Add to cart
+                    <span class="sold-out-message hidden">
+                      Sold out
+                    </span>
+                    <div class="loading-overlay__spinner hidden">
+                      <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                      </svg>
+                    </div>
+                  </button>
+                </div>
+              ` : ''}
+            </div>
           </div>
-          <div class="quiz-results__product-actions">
-            <button 
-              class="quiz-results__btn quiz-results__btn--primary quiz-results__add-to-cart"
-              data-variant-id="${variant.id}"
-              data-product-title="${product.title}"
-            >
-              Add to Cart
-            </button>
-            <a 
-              href="/products/${product.handle}" 
-              class="quiz-results__btn quiz-results__btn--secondary"
-            >
-              View Product Details
-            </a>
+        </div>
+      </li>
+    `;
+    
+    // Set up add to cart button using Shopify's quick-add functionality
+    const addToCartBtn = cardEl.querySelector('.quick-add__submit');
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        QuizResults.addToCart(variant.id, product.title);
+      });
+    }
+  }
+
+  /**
+   * Render price using Shopify's price structure
+   * @param {string} price - Current price
+   * @param {string|null} compareAtPrice - Compare at price (if on sale)
+   * @param {boolean} onSale - Whether product is on sale
+   * @returns {string} HTML for price display
+   */
+  static renderPrice(price, compareAtPrice, onSale) {
+    if (onSale && compareAtPrice) {
+      return `
+        <div class="price">
+          <div class="price__container">
+            <div class="price__regular">
+              <span class="visually-hidden visually-hidden--inline">Regular price</span>
+              <span class="price-item price-item--regular">
+                ${compareAtPrice}
+              </span>
+            </div>
+            <div class="price__sale">
+              <span class="visually-hidden visually-hidden--inline">Sale price</span>
+              <span class="price-item price-item--sale price-item--last">
+                ${price}
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    return `
+      <div class="price">
+        <div class="price__container">
+          <div class="price__regular">
+            <span class="visually-hidden visually-hidden--inline">Regular price</span>
+            <span class="price-item price-item--regular">
+              ${price}
+            </span>
           </div>
         </div>
       </div>
     `;
-    
-    // Set up add to cart button
-    const addToCartBtn = cardEl.querySelector('.quiz-results__add-to-cart');
-    if (addToCartBtn) {
-      addToCartBtn.addEventListener('click', () => {
-        QuizResults.addToCart(variant.id, product.title);
-      });
-    }
   }
 
   /**
@@ -373,4 +543,14 @@ class QuizResults {
 
 // Export for global access
 window.QuizResults = QuizResults;
+
+// Initialize preview mode on page load if URL parameter is present
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    QuizResults.initPreviewMode();
+  });
+} else {
+  // DOM already loaded
+  QuizResults.initPreviewMode();
+}
 

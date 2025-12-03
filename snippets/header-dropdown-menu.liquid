@@ -8,6 +8,16 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {%- comment -%} Hide Quiz History if customer is not logged in {%- endcomment -%}
+      {%- liquid
+        assign is_quiz_history = false
+        if link.url contains '/pages/quiz-history' or link.handle == 'quiz-history'
+          assign is_quiz_history = true
+        endif
+      -%}
+      {%- if is_quiz_history and customer == blank -%}
+        {%- continue -%}
+      {%- endif -%}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
@@ -32,6 +42,16 @@
                 tabindex="-1"
               >
                 {%- for childlink in link.links -%}
+                  {%- comment -%} Hide Quiz History if customer is not logged in {%- endcomment -%}
+                  {%- liquid
+                    assign is_quiz_history_child = false
+                    if childlink.url contains '/pages/quiz-history' or childlink.handle == 'quiz-history'
+                      assign is_quiz_history_child = true
+                    endif
+                  -%}
+                  {%- if is_quiz_history_child and customer == blank -%}
+                    {%- continue -%}
+                  {%- endif -%}
                   <li>
                     {%- if childlink.links == blank -%}
                       <a
@@ -58,6 +78,16 @@
                           class="header__submenu list-menu motion-reduce"
                         >
                           {%- for grandchildlink in childlink.links -%}
+                            {%- comment -%} Hide Quiz History if customer is not logged in {%- endcomment -%}
+                            {%- liquid
+                              assign is_quiz_history_grandchild = false
+                              if grandchildlink.url contains '/pages/quiz-history' or grandchildlink.handle == 'quiz-history'
+                                assign is_quiz_history_grandchild = true
+                              endif
+                            -%}
+                            {%- if is_quiz_history_grandchild and customer == blank -%}
+                              {%- continue -%}
+                            {%- endif -%}
                             <li>
                               <a
                                 id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"

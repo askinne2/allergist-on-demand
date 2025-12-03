@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "quiz-history",
+      "settings": {
+        "page_title": "Symptom Assessment History",
+        "page_subtitle": "View your past symptom assessments and track your progress over time.",
+        "login_title": "View Your Assessment History",
+        "login_text": "Please log in to view your symptom assessment history.",
+        "empty_title": "No Assessments Yet",
+        "empty_text": "You haven't completed any symptom assessments yet. Take your first assessment to get personalized recommendations.",
+        "take_first_quiz_text": "Take Assessment",
+        "retake_btn_text": "Take New Assessment",
+        "back_to_account_text": "Back to Account",
+        "padding_top": 36,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+

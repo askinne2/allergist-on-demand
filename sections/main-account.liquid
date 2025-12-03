@@ -26,6 +26,78 @@
   </div>
 
   <div>
+    {%- comment -%} Quiz History Section {%- endcomment -%}
+    {%- liquid
+      assign quiz_history_json = customer.metafields.alledrops.quiz_history.value
+      assign latest_profile_id = customer.metafields.alledrops.symptom_profile_id.value
+      assign latest_score = customer.metafields.alledrops.quiz_score.value
+      assign latest_severity = customer.metafields.alledrops.severity_level.value
+      assign latest_date = customer.metafields.alledrops.quiz_date.value
+      assign latest_region = customer.metafields.alledrops.quiz_region.value
+      assign has_quiz_data = false
+      if quiz_history_json != blank or latest_profile_id != blank
+        assign has_quiz_data = true
+      endif
+    -%}
+    
+    {%- if has_quiz_data -%}
+      <div class="customer__quiz-history">
+        <h2>Symptom Assessment History</h2>
+        
+        {%- if quiz_history_json != blank -%}
+          <div 
+            class="quiz-history-list" 
+            data-quiz-history='{{ quiz_history_json }}'
+            data-quiz-history-loaded="false"
+          >
+            <p class="quiz-history-loading">Loading assessment history...</p>
+          </div>
+        {%- elsif latest_profile_id != blank -%}
+          {%- comment -%} Fallback: Show latest quiz if history doesn't exist {%- endcomment -%}
+          <div class="quiz-history-list">
+            <div class="quiz-history-item">
+              <div class="quiz-history-item__header">
+                <h3>Latest Assessment</h3>
+                {%- if latest_date != blank -%}
+                  <span class="quiz-history-item__date">
+                    {{ latest_date | date: "%B %d, %Y" }}
+                  </span>
+                {%- endif -%}
+              </div>
+              <div class="quiz-history-item__details">
+                {%- if latest_score != blank -%}
+                  <div class="quiz-history-item__score">
+                    <span class="score-label">Score:</span>
+                    <span class="score-value">{{ latest_score }}/60</span>
+                  </div>
+                {%- endif -%}
+                {%- if latest_severity != blank -%}
+                  <div class="quiz-history-item__severity severity-{{ latest_severity }}">
+                    <span class="severity-label">Severity:</span>
+                    <span class="severity-value">{{ latest_severity | capitalize }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if latest_region != blank -%}
+                  <div class="quiz-history-item__region">
+                    <span class="region-label">Region:</span>
+                    <span class="region-value">{{ latest_region }}</span>
+                  </div>
+                {%- endif -%}
+                <div class="quiz-history-item__profile-id">
+                  <span class="profile-label">Profile ID:</span>
+                  <code class="profile-value">{{ latest_profile_id }}</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+        
+        <div class="quiz-history-actions">
+          <a href="/pages/symptom-quiz" class="button">Take New Assessment</a>
+        </div>
+      </div>
+    {%- endif -%}
+
     <div>
       <h2>{{ 'customer.orders.title' | t }}</h2>
 
@@ -149,6 +221,87 @@
     </div>
   </div>
 </div>
+
+{%- comment -%} Quiz History JavaScript - Minimal JS for JSON parsing {%- endcomment -%}
+<script>
+  (function() {
+    const historyContainer = document.querySelector('[data-quiz-history]');
+    if (!historyContainer || historyContainer.dataset.quizHistoryLoaded === 'true') {
+      return;
+    }
+
+    try {
+      const historyJson = historyContainer.dataset.quizHistory;
+      if (!historyJson) {
+        historyContainer.innerHTML = '<p>No assessment history found.</p>';
+        return;
+      }
+
+      const history = JSON.parse(historyJson);
+      if (!Array.isArray(history) || history.length === 0) {
+        historyContainer.innerHTML = '<p>You haven\'t completed any symptom assessments yet.</p><a href="/pages/symptom-quiz" class="button">Take Assessment</a>';
+        return;
+      }
+
+      const severityLabels = {
+        minimal: 'Minimal',
+        mild: 'Mild',
+        moderate: 'Moderate',
+        severe: 'Severe'
+      };
+
+      const historyHTML = history.map((quiz, index) => {
+        const date = quiz.date ? new Date(quiz.date) : null;
+        const formattedDate = date ? date.toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        }) : 'Date not available';
+        
+        return `
+          <div class="quiz-history-item">
+            <div class="quiz-history-item__header">
+              <h3>Assessment #${index + 1}</h3>
+              <span class="quiz-history-item__date">${formattedDate}</span>
+            </div>
+            <div class="quiz-history-item__details">
+              ${quiz.score != null ? `
+                <div class="quiz-history-item__score">
+                  <span class="score-label">Score:</span>
+                  <span class="score-value">${quiz.score}/60</span>
+                </div>
+              ` : ''}
+              ${quiz.severity ? `
+                <div class="quiz-history-item__severity severity-${quiz.severity}">
+                  <span class="severity-label">Severity:</span>
+                  <span class="severity-value">${severityLabels[quiz.severity] || quiz.severity}</span>
+                </div>
+              ` : ''}
+              ${quiz.region ? `
+                <div class="quiz-history-item__region">
+                  <span class="region-label">Region:</span>
+                  <span class="region-value">${quiz.region}</span>
+                </div>
+              ` : ''}
+              ${quiz.profile_id ? `
+                <div class="quiz-history-item__profile-id">
+                  <span class="profile-label">Profile ID:</span>
+                  <code class="profile-value">${quiz.profile_id}</code>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      historyContainer.innerHTML = historyHTML;
+      historyContainer.dataset.quizHistoryLoaded = 'true';
+    } catch (error) {
+      console.error('Error parsing quiz history:', error);
+      historyContainer.innerHTML = '<p>Unable to load assessment history. Please try again later.</p>';
+    }
+  })();
+</script>
 
 {% schema %}
 {

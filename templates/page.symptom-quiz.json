@@ -1,17 +1,9 @@
 {
   "sections": {
-    "symptom_quiz": {
-      "type": "symptom-quiz",
+    "quiz_app": {
+      "type": "apps",
       "settings": {
-        "heading": "AlleDrops Symptom Assessment",
-        "subheading": "Take our comprehensive assessment to find the right regional allergy drops for your symptoms. This will take approximately 2-3 minutes.",
-        "show_disclaimer": true,
-        "btn_prev_text": "Previous",
-        "btn_next_text": "Next",
-        "btn_submit_text": "Submit Assessment",
-        "use_metaobjects": false,
-        "padding_top": 36,
-        "padding_bottom": 0
+        "include_margins": true
       }
     },
     "quiz_results": {
@@ -31,16 +23,17 @@
         "education_heading": "Learn More About Allergies",
         "education_text": "Your symptoms appear minimal at this time. Learn more about managing allergies naturally.",
         "education_btn_text": "View Resources",
-        "product_handle_format": "{region}-allergy-drops",
-        "show_disclaimer": true,
+        "product_handle_format": "{region}-alledrops",
         "retake_btn_text": "Retake Assessment",
-        "padding_top": 0,
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
         "padding_bottom": 72
       }
     }
   },
   "order": [
-    "symptom_quiz",
+    "quiz_app",
     "quiz_results"
   ]
 }

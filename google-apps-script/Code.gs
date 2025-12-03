@@ -50,8 +50,7 @@ const HEADERS = [
   'Throat - Sore',
   'Throat - Mouth Itchy',
   'Seasonal Timing',
-  'Duration',
-  'Full Response JSON'
+  'Duration'
 ];
 
 /**
@@ -111,9 +110,14 @@ function doPost(e) {
 
 /**
  * doOptions - Handles OPTIONS requests for CORS preflight
+ * IMPORTANT: This function must exist for CORS preflight to work
+ * Google Apps Script will call this automatically for OPTIONS requests
  */
 function doOptions(e) {
-  return createCORSResponse('');
+  // Return empty 204 response
+  // Google Apps Script web apps deployed as "Anyone" automatically add CORS headers
+  return ContentService.createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT);
 }
 
 /**
@@ -132,17 +136,18 @@ function doGet(e) {
 
 /**
  * Create response with CORS headers
- * This allows cross-origin requests from any domain
+ * IMPORTANT: For CORS to work, the web app MUST be deployed with:
+ * - Execute as: "Me"
+ * - Who has access: "Anyone" (not "Only myself")
+ * 
+ * Google Apps Script automatically adds CORS headers when deployed as "Anyone"
+ * ContentService.setHeaders() doesn't work, so we rely on deployment settings
  */
 function createCORSResponse(content) {
+  // Return JSON response
+  // CORS headers are automatically added by Google Apps Script when deployed correctly
   return ContentService.createTextOutput(content)
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Max-Age': '3600'
-    });
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /**

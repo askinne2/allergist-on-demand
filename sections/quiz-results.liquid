@@ -1,5 +1,11 @@
 {{ 'symptom-quiz.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  if section.settings.color_scheme == section.settings.section_color_scheme
+    assign remove_color_classes = true
+  endif
+-%}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -14,38 +20,73 @@
   }
 {%- endstyle -%}
 
-<div class="quiz-results-wrapper section-{{ section.id }}-padding" data-quiz-results style="display: none;">
+<div class="quiz-results-wrapper section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}" data-quiz-results style="display: none;">
   <div class="page-width">
     
     {%- comment -%} Results Header {%- endcomment -%}
-    <div class="quiz-results__header">
+    <div class="quiz-results__header{% unless remove_color_classes %} gradient color-{{ section.settings.color_scheme }}{% endunless %}">
       <h2 class="quiz-results__title">Your Assessment Results</h2>
     </div>
     
-    {%- comment -%} Score Display {%- endcomment -%}
-    <div class="quiz-results__score-container">
-      <div class="quiz-results__score-circle" data-results-circle>
-        <span class="quiz-results__score-number" data-results-score>0</span>
-        <span class="quiz-results__score-max">/60</span>
+    {%- comment -%} Two Column Layout: Results (Left) | Product (Right) {%- endcomment -%}
+    <div class="quiz-results__main-grid">
+      {%- comment -%} Left Column: Score and Recommendation {%- endcomment -%}
+      <div class="quiz-results__left-column">
+        {%- comment -%} Score Display {%- endcomment -%}
+        <div class="quiz-results__score-container{% unless remove_color_classes %} gradient color-{{ section.settings.color_scheme }}{% endunless %}">
+          <div class="quiz-results__score-circle" data-results-circle>
+            <span class="quiz-results__score-number" data-results-score>0</span>
+            <span class="quiz-results__score-max">/60</span>
+          </div>
+          <div class="quiz-results__severity">
+            <span class="quiz-results__severity-label">Severity Level:</span>
+            <span class="quiz-results__severity-value" data-results-severity>Calculating...</span>
+          </div>
+        </div>
+        
+        {%- comment -%} Recommendation Message {%- endcomment -%}
+        <div class="quiz-results__recommendation" data-results-recommendation>
+          <div class="quiz-results__message" data-results-message>
+            {%- comment -%} Message populated by JavaScript based on score {%- endcomment -%}
+          </div>
+        </div>
+        
+        {%- comment -%} Profile ID Display {%- endcomment -%}
+        <div class="quiz-results__profile">
+          <p class="quiz-results__profile-text">
+            Your Symptom Profile ID: <strong data-results-profile-id>-</strong>
+          </p>
+          <p class="quiz-results__profile-note">
+            Save this ID for your records. Our customer service team can reference it to view your detailed assessment.
+          </p>
+        </div>
+        
+        {%- comment -%} Retake Button {%- endcomment -%}
+        <div class="quiz-results__actions">
+          <button 
+            type="button" 
+            class="button button--secondary" 
+            data-retake-quiz
+          >
+            {{ section.settings.retake_btn_text | default: 'Retake Assessment' }}
+          </button>
+        </div>
       </div>
-      <div class="quiz-results__severity">
-        <span class="quiz-results__severity-label">Severity Level:</span>
-        <span class="quiz-results__severity-value" data-results-severity>Calculating...</span>
-      </div>
-    </div>
-    
-    {%- comment -%} Recommendation Message {%- endcomment -%}
-    <div class="quiz-results__recommendation" data-results-recommendation>
-      <div class="quiz-results__message" data-results-message>
-        {%- comment -%} Message populated by JavaScript based on score {%- endcomment -%}
-      </div>
-    </div>
-    
-    {%- comment -%} Product Recommendation {%- endcomment -%}
-    <div class="quiz-results__product" data-results-product style="display: none;">
-      <h3 class="quiz-results__product-title">Recommended for You</h3>
-      <div class="quiz-results__product-card" data-product-card>
-        {%- comment -%} Product details populated by JavaScript {%- endcomment -%}
+      
+      {%- comment -%} Right Column: Product Recommendation {%- endcomment -%}
+      <div class="quiz-results__right-column">
+        {%- comment -%} Product Recommendation - Using Shopify Native Product Card {%- endcomment -%}
+        <div class="quiz-results__product" data-results-product style="display: none;">
+          <h3 class="quiz-results__product-title">Recommended for You</h3>
+          {%- comment -%} Load Shopify's product card styles {%- endcomment -%}
+          {{ 'component-card.css' | asset_url | stylesheet_tag }}
+          {{ 'component-price.css' | asset_url | stylesheet_tag }}
+          {{ 'component-rating.css' | asset_url | stylesheet_tag }}
+          {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+          <ul class="quiz-results__product-grid grid product-grid contains-card contains-card--product grid--1-col-desktop grid--1-col-tablet-down" data-product-card role="list">
+            {%- comment -%} Product card will be rendered using Shopify's card-product snippet structure {%- endcomment -%}
+          </ul>
+        </div>
       </div>
     </div>
     
@@ -69,39 +110,6 @@
       <a href="{{ section.settings.education_url }}" class="quiz-results__btn quiz-results__btn--education">
         {{ section.settings.education_btn_text | default: 'View Resources' }}
       </a>
-    </div>
-    
-    {%- comment -%} Profile ID Display {%- endcomment -%}
-    <div class="quiz-results__profile">
-      <p class="quiz-results__profile-text">
-        Your Symptom Profile ID: <strong data-results-profile-id>-</strong>
-      </p>
-      <p class="quiz-results__profile-note">
-        Save this ID for your records. Our customer service team can reference it to view your detailed assessment.
-      </p>
-    </div>
-    
-    {%- comment -%} Privacy & Disclaimer {%- endcomment -%}
-    <div class="quiz-results__footer">
-      {%- if section.settings.show_disclaimer -%}
-        <div class="quiz-results__disclaimer">
-          <p>
-            <strong>Important:</strong> 
-            This assessment provides product recommendations only and is not a medical diagnosis. 
-            Always consult with a qualified healthcare provider before starting any new treatment.
-          </p>
-        </div>
-      {%- endif -%}
-      
-      <div class="quiz-results__actions">
-        <button 
-          type="button" 
-          class="quiz-results__btn quiz-results__btn--secondary" 
-          data-retake-quiz
-        >
-          {{ section.settings.retake_btn_text | default: 'Retake Assessment' }}
-        </button>
-      </div>
     </div>
     
   </div>
@@ -128,7 +136,7 @@
         text: {{ section.settings.severe_text | default: "You're an excellent candidate for AlleDrops! Your severe symptoms strongly indicate a need for immunotherapy." | json }}
       }
     },
-    productHandleFormat: {% if section.settings.product_handle_format %}{{ section.settings.product_handle_format | json }}{% else %}'{region}-allergy-drops'{% endif %},
+    productHandleFormat: {% if section.settings.product_handle_format %}{{ section.settings.product_handle_format | json }}{% else %}'{region}-alledrops'{% endif %},
     shopUrl: {{ shop.url | json }}
   };
 </script>
@@ -255,18 +263,28 @@
       "type": "text",
       "id": "product_handle_format",
       "label": "Product Handle Format",
-      "default": "{region}-allergy-drops",
-      "info": "Use {region} placeholder. Example: northwest-allergy-drops"
+      "default": "{region}-alledrops",
+      "info": "Use {region} placeholder. Example: northwest-alledrops"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.colors.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.multirow.settings.container_color_scheme.label",
+      "default": "scheme-1"
     },
     {
       "type": "header",
       "content": "Other Settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_disclaimer",
-      "label": "Show Medical Disclaimer",
-      "default": true
     },
     {
       "type": "text",

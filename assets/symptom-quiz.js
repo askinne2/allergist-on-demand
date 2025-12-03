@@ -45,6 +45,14 @@ class SymptomQuiz {
     this.responses = {};
     this.startTime = Date.now();
     
+    // Log config for debugging
+    console.log('SymptomQuiz initialized with config:', {
+      googleSheetsWebAppUrl: this.config.googleSheetsWebAppUrl,
+      cloudflareWorkerUrl: this.config.cloudflareWorkerUrl,
+      shopUrl: this.config.shopUrl,
+      useMetaobjects: this.config.useMetaobjects
+    });
+    
     // DOM elements
     this.form = document.querySelector('[data-quiz-form]');
     this.questionContainer = document.querySelector('[data-question-container]');
@@ -116,14 +124,20 @@ class SymptomQuiz {
       this.form.addEventListener('submit', (e) => this.handleSubmit(e));
     }
     
-    // Auto-save responses when inputs change
-    if (this.form) {
-      this.form.addEventListener('change', (e) => {
-        if (e.target.name && e.target.name !== 'quiz_website') {
-          this.saveResponse(e.target.name, this.getInputValue(e.target));
-        }
-      });
-    }
+      // Auto-save responses when inputs change
+      if (this.form) {
+        this.form.addEventListener('change', (e) => {
+          if (e.target.name && e.target.name !== 'quiz_website') {
+            this.saveResponse(e.target.name, this.getInputValue(e.target));
+          }
+        });
+      }
+      
+      // Test mode button (if enabled)
+      const testBtn = document.querySelector('[data-quiz-test]');
+      if (testBtn) {
+        testBtn.addEventListener('click', () => this.runTestMode());
+      }
   }
 
   /**
@@ -612,13 +626,28 @@ class SymptomQuiz {
       };
       
       // Submit to Google Sheets (detailed data)
+      console.log('Checking Google Sheets config:', {
+        hasGoogleSheetsIntegration: !!window.GoogleSheetsIntegration,
+        googleSheetsWebAppUrl: this.config.googleSheetsWebAppUrl,
+        cloudflareWorkerUrl: this.config.cloudflareWorkerUrl
+      });
+      
       if (window.GoogleSheetsIntegration && this.config.googleSheetsWebAppUrl) {
+        console.log('Submitting to Google Sheets...');
         await window.GoogleSheetsIntegration.submitResponses(submissionData, this.config);
+      } else {
+        console.warn('Google Sheets submission skipped:', {
+          reason: !window.GoogleSheetsIntegration ? 'GoogleSheetsIntegration not loaded' : 'googleSheetsWebAppUrl not configured',
+          config: this.config
+        });
       }
       
       // Submit to Cloudflare Worker (summary data for Shopify)
       if (this.config.cloudflareWorkerUrl) {
+        console.log('Submitting to Cloudflare Worker...');
         await this.submitToCloudflare(submissionData);
+      } else {
+        console.warn('Cloudflare Worker submission skipped: cloudflareWorkerUrl not configured');
       }
       
       // Show results
@@ -637,26 +666,41 @@ class SymptomQuiz {
    */
   async submitToCloudflare(data) {
     try {
+      const payload = {
+        email: data.customerEmail,
+        symptom_profile_id: data.profileId,
+        quiz_score: data.score,
+        quiz_region: data.region,
+        quiz_date: data.submissionDate,
+        severity_level: data.severityLevel
+      };
+      
+      console.log('Submitting to Cloudflare Worker:', {
+        url: this.config.cloudflareWorkerUrl,
+        payload: payload
+      });
+      
       const response = await fetch(this.config.cloudflareWorkerUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email: data.customerEmail,
-          symptom_profile_id: data.profileId,
-          quiz_score: data.score,
-          quiz_region: data.region,
-          quiz_date: data.submissionDate,
-          severity_level: data.severityLevel
-        })
+        body: JSON.stringify(payload)
+      });
+      
+      const responseText = await response.text();
+      console.log('Cloudflare Worker response:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: responseText
       });
       
       if (!response.ok) {
-        throw new Error(`Cloudflare Worker error: ${response.status}`);
+        throw new Error(`Cloudflare Worker error: ${response.status} - ${responseText}`);
       }
       
-      console.log('Successfully submitted to Cloudflare Worker');
+      const result = JSON.parse(responseText);
+      console.log('Successfully submitted to Cloudflare Worker:', result);
     } catch (error) {
       console.error('Cloudflare submission error:', error);
       // Don't throw - we still want to show results even if Shopify update fails
@@ -739,6 +783,95 @@ class SymptomQuiz {
     fieldErrors.forEach(error => {
       error.textContent = '';
     });
+  }
+
+  /**
+   * Test Mode: Auto-complete quiz with sample data
+   * Simulates a full quiz completion for testing purposes
+   */
+  async runTestMode() {
+    if (!confirm('🧪 Test Mode: This will auto-fill and submit the quiz with sample data. Continue?')) {
+      return;
+    }
+
+    console.log('🧪 Test Mode: Starting auto-fill...');
+
+    // Test data - simulates a severe symptom case
+    const testResponses = {
+      region: 'northwest',
+      timing_seasonal: 'spring',
+      timing_duration: '1_3yrs',
+      // Nasal symptoms (all severe = 3)
+      nasal_runny: '3',
+      nasal_stuffy: '3',
+      nasal_sneezing: '3',
+      nasal_postnasal: '3',
+      nasal_smell_loss: '3',
+      // Eye symptoms (all severe = 3)
+      eye_watery: '3',
+      eye_itchy: '3',
+      eye_red: '3',
+      eye_swollen: '3',
+      // Respiratory symptoms (all severe = 3)
+      respiratory_cough: '3',
+      respiratory_wheeze: '3',
+      respiratory_tight: '3',
+      respiratory_breath: '3',
+      // Skin symptoms (all severe = 3)
+      skin_rash: '3',
+      skin_hives: '3',
+      skin_itching: '3',
+      skin_eczema: '3',
+      // Throat symptoms (all severe = 3)
+      throat_itchy: '3',
+      throat_sore: '3',
+      throat_mouth_itchy: '3',
+      // Contact info
+      customer_name: 'Test User',
+      customer_email: 'test@example.com',
+      consent: 'true'
+    };
+
+    // Auto-fill all responses
+    this.responses = { ...testResponses };
+
+    // Auto-fill form inputs (for visual feedback)
+    for (const [name, value] of Object.entries(testResponses)) {
+      const input = this.form.querySelector(`[name="${name}"]`);
+      if (input) {
+        if (input.type === 'radio' || input.type === 'checkbox') {
+          const matchingInput = this.form.querySelector(`[name="${name}"][value="${value}"]`);
+          if (matchingInput) {
+            matchingInput.checked = true;
+            matchingInput.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        } else {
+          input.value = value;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    }
+
+    // Simulate going through all categories quickly
+    console.log('🧪 Test Mode: Simulating category navigation...');
+    
+    // Show each category briefly for visual feedback
+    for (let i = 0; i < this.categories.length; i++) {
+      this.showCategory(i);
+      await new Promise(resolve => setTimeout(resolve, 100)); // Brief pause
+    }
+
+    // Show final category
+    this.showCategory(this.categories.length - 1);
+    
+    // Wait a moment, then submit
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    console.log('🧪 Test Mode: Auto-submitting...');
+    
+    // Trigger form submission
+    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+    this.form.dispatchEvent(submitEvent);
   }
 }
 
