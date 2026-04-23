@@ -106,23 +106,20 @@ function validateRequestData(data) {
   if (!data.email || !isValidEmail(data.email)) {
     return { valid: false, error: 'Valid email is required' };
   }
-  
   if (!data.symptom_profile_id) {
     return { valid: false, error: 'symptom_profile_id is required' };
   }
-  
   if (typeof data.quiz_score !== 'number') {
     return { valid: false, error: 'quiz_score must be a number' };
   }
-  
-  if (!data.quiz_region) {
-    return { valid: false, error: 'quiz_region is required' };
+  const state = data.state || data.quiz_region;
+  if (!state || typeof state !== 'string') {
+    return { valid: false, error: 'state is required (legacy quiz_region accepted)' };
   }
-  
-  if (!data.severity_level) {
-    return { valid: false, error: 'severity_level is required' };
+  const bracket = data.score_bracket || data.severity_level;
+  if (!bracket || typeof bracket !== 'string') {
+    return { valid: false, error: 'score_bracket is required (legacy severity_level accepted)' };
   }
-  
   return { valid: true };
 }
 
@@ -265,12 +262,14 @@ async function updateCustomerMetafields(customerId, data, existingHistoryJson) {
   }
   
   // Add new quiz entry to history (store minimal data - full data is in Google Sheets)
+  const stateVal = data.state || data.quiz_region;
+  const bracketVal = data.score_bracket || data.severity_level;
   const quizEntry = {
     profile_id: data.symptom_profile_id,
     date: data.quiz_date || new Date().toISOString(),
     score: data.quiz_score,
-    severity: data.severity_level,
-    region: data.quiz_region
+    score_bracket: bracketVal,
+    state: stateVal
   };
   
   // Add to beginning of array (most recent first)
@@ -300,9 +299,9 @@ async function updateCustomerMetafields(customerId, data, existingHistoryJson) {
     {
       ownerId: customerId,
       namespace: 'alledrops',
-      key: 'quiz_region',
+      key: 'state',
       type: 'single_line_text_field',
-      value: data.quiz_region
+      value: stateVal
     },
     {
       ownerId: customerId,
@@ -314,9 +313,9 @@ async function updateCustomerMetafields(customerId, data, existingHistoryJson) {
     {
       ownerId: customerId,
       namespace: 'alledrops',
-      key: 'severity_level',
+      key: 'score_bracket',
       type: 'single_line_text_field',
-      value: data.severity_level
+      value: bracketVal
     },
     // Quiz history (array of quiz references)
     {
