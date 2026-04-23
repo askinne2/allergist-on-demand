@@ -265,7 +265,31 @@
           month: 'long', 
           day: 'numeric' 
         }) : 'Date not available';
-        
+        const parenText =
+          (quiz.score_bracket || quiz.severity)
+            ? (quiz.score_bracket || severityLabels[quiz.severity] || quiz.severity || '')
+            : '';
+        const scoreValue =
+          quiz.score != null
+            ? `${quiz.score}${parenText ? ` (${parenText})` : ''}`
+            : '';
+        const stateVal = quiz.state || quiz.region;
+        let extraBracketOrSeverity = '';
+        if (quiz.score == null) {
+          if (quiz.score_bracket) {
+            extraBracketOrSeverity = `
+                <div class="quiz-history-item__severity">
+                  <span class="severity-label">Bracket:</span>
+                  <span class="severity-value">${quiz.score_bracket}</span>
+                </div>`;
+          } else if (quiz.severity) {
+            extraBracketOrSeverity = `
+                <div class="quiz-history-item__severity severity-${quiz.severity}">
+                  <span class="severity-label">Severity (legacy):</span>
+                  <span class="severity-value">${severityLabels[quiz.severity] || quiz.severity}</span>
+                </div>`;
+          }
+        }
         return `
           <div class="quiz-history-item">
             <div class="quiz-history-item__header">
@@ -276,19 +300,14 @@
               ${quiz.score != null ? `
                 <div class="quiz-history-item__score">
                   <span class="score-label">Score:</span>
-                  <span class="score-value">${quiz.score}/60</span>
+                  <span class="score-value">${scoreValue}</span>
                 </div>
               ` : ''}
-              ${quiz.severity ? `
-                <div class="quiz-history-item__severity severity-${quiz.severity}">
-                  <span class="severity-label">Severity:</span>
-                  <span class="severity-value">${severityLabels[quiz.severity] || quiz.severity}</span>
-                </div>
-              ` : ''}
-              ${quiz.region ? `
+              ${extraBracketOrSeverity}
+              ${stateVal ? `
                 <div class="quiz-history-item__region">
-                  <span class="region-label">Region:</span>
-                  <span class="region-value">${quiz.region}</span>
+                  <span class="state-label">State:</span>
+                  <span class="state-value">${stateVal}</span>
                 </div>
               ` : ''}
               ${quiz.profile_id ? `
