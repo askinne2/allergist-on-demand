@@ -39,9 +39,9 @@
         assign quiz_history_raw = customer.metafields.alledrops.quiz_history.value
         assign latest_profile_id = customer.metafields.alledrops.symptom_profile_id.value
         assign latest_score = customer.metafields.alledrops.quiz_score.value
-        assign latest_severity = customer.metafields.alledrops.severity_level.value
+        assign latest_bracket = customer.metafields.alledrops.score_bracket.value | default: customer.metafields.alledrops.severity_level.value
         assign latest_date = customer.metafields.alledrops.quiz_date.value
-        assign latest_region = customer.metafields.alledrops.quiz_region.value
+        assign latest_state = customer.metafields.alledrops.state.value | default: customer.metafields.alledrops.quiz_region.value
         assign has_quiz_data = false
         if quiz_history_raw != blank or latest_profile_id != blank
           assign has_quiz_data = true
@@ -81,19 +81,27 @@
                   {%- if latest_score != blank -%}
                     <div class="quiz-history-item__score">
                       <span class="score-label">Score:</span>
-                      <span class="score-value">{{ latest_score }}/60</span>
+                      <span class="score-value">{{ latest_score }}{% if latest_bracket != blank %} ({{ latest_bracket }}){% endif %}</span>
                     </div>
                   {%- endif -%}
-                  {%- if latest_severity != blank -%}
-                    <div class="quiz-history-item__severity severity-{{ latest_severity }}">
-                      <span class="severity-label">Severity:</span>
-                      <span class="severity-value">{{ latest_severity | capitalize }}</span>
-                    </div>
+                  {%- if latest_score == blank -%}
+                    {%- if latest_bracket != blank -%}
+                      <div class="quiz-history-item__severity">
+                        <span class="severity-label">Bracket:</span>
+                        <span class="severity-value">{{ latest_bracket }}</span>
+                      </div>
+                    {%- endif -%}
+                    {%- if latest_bracket == blank and customer.metafields.alledrops.severity_level.value != blank -%}
+                      <div class="quiz-history-item__severity severity-{{ customer.metafields.alledrops.severity_level.value }}">
+                        <span class="severity-label">Severity (legacy):</span>
+                        <span class="severity-value">{{ customer.metafields.alledrops.severity_level.value | capitalize }}</span>
+                      </div>
+                    {%- endif -%}
                   {%- endif -%}
-                  {%- if latest_region != blank -%}
+                  {%- if latest_state != blank -%}
                     <div class="quiz-history-item__region">
-                      <span class="region-label">Region:</span>
-                      <span class="region-value">{{ latest_region }}</span>
+                      <span class="state-label">State:</span>
+                      <span class="state-value">{{ latest_state }}</span>
                     </div>
                   {%- endif -%}
                   <div class="quiz-history-item__profile-id">
@@ -215,7 +223,31 @@
           month: 'long', 
           day: 'numeric' 
         }) : 'Date not available';
-        
+        const parenText =
+          (quiz.score_bracket || quiz.severity)
+            ? (quiz.score_bracket || severityLabels[quiz.severity] || quiz.severity || '')
+            : '';
+        const scoreValue =
+          quiz.score != null
+            ? `${quiz.score}${parenText ? ` (${parenText})` : ''}`
+            : '';
+        const stateVal = quiz.state || quiz.region;
+        let extraBracketOrSeverity = '';
+        if (quiz.score == null) {
+          if (quiz.score_bracket) {
+            extraBracketOrSeverity = `
+                <div class="quiz-history-item__severity">
+                  <span class="severity-label">Bracket:</span>
+                  <span class="severity-value">${quiz.score_bracket}</span>
+                </div>`;
+          } else if (quiz.severity) {
+            extraBracketOrSeverity = `
+                <div class="quiz-history-item__severity severity-${quiz.severity}">
+                  <span class="severity-label">Severity (legacy):</span>
+                  <span class="severity-value">${severityLabels[quiz.severity] || quiz.severity}</span>
+                </div>`;
+          }
+        }
         return `
           <div class="quiz-history-item">
             <div class="quiz-history-item__header">
@@ -226,19 +258,14 @@
               ${quiz.score != null ? `
                 <div class="quiz-history-item__score">
                   <span class="score-label">Score:</span>
-                  <span class="score-value">${quiz.score}/60</span>
+                  <span class="score-value">${scoreValue}</span>
                 </div>
               ` : ''}
-              ${quiz.severity ? `
-                <div class="quiz-history-item__severity severity-${quiz.severity}">
-                  <span class="severity-label">Severity:</span>
-                  <span class="severity-value">${severityLabels[quiz.severity] || quiz.severity}</span>
-                </div>
-              ` : ''}
-              ${quiz.region ? `
+              ${extraBracketOrSeverity}
+              ${stateVal ? `
                 <div class="quiz-history-item__region">
-                  <span class="region-label">Region:</span>
-                  <span class="region-value">${quiz.region}</span>
+                  <span class="state-label">State:</span>
+                  <span class="state-value">${stateVal}</span>
                 </div>
               ` : ''}
               ${quiz.profile_id ? `
