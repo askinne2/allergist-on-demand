@@ -31,9 +31,9 @@
       assign quiz_history_json = customer.metafields.alledrops.quiz_history.value
       assign latest_profile_id = customer.metafields.alledrops.symptom_profile_id.value
       assign latest_score = customer.metafields.alledrops.quiz_score.value
-      assign latest_severity = customer.metafields.alledrops.severity_level.value
+      assign latest_bracket = customer.metafields.alledrops.score_bracket.value | default: customer.metafields.alledrops.severity_level.value
       assign latest_date = customer.metafields.alledrops.quiz_date.value
-      assign latest_region = customer.metafields.alledrops.quiz_region.value
+      assign latest_state = customer.metafields.alledrops.state.value | default: customer.metafields.alledrops.quiz_region.value
       assign has_quiz_data = false
       if quiz_history_json != blank or latest_profile_id != blank
         assign has_quiz_data = true
@@ -68,19 +68,27 @@
                 {%- if latest_score != blank -%}
                   <div class="quiz-history-item__score">
                     <span class="score-label">Score:</span>
-                    <span class="score-value">{{ latest_score }}/60</span>
+                    <span class="score-value">{{ latest_score }}{% if latest_bracket != blank %} ({{ latest_bracket }}){% endif %}</span>
                   </div>
                 {%- endif -%}
-                {%- if latest_severity != blank -%}
-                  <div class="quiz-history-item__severity severity-{{ latest_severity }}">
-                    <span class="severity-label">Severity:</span>
-                    <span class="severity-value">{{ latest_severity | capitalize }}</span>
-                  </div>
+                {%- if latest_score == blank -%}
+                  {%- if latest_bracket != blank -%}
+                    <div class="quiz-history-item__severity">
+                      <span class="severity-label">Bracket:</span>
+                      <span class="severity-value">{{ latest_bracket }}</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if latest_bracket == blank and customer.metafields.alledrops.severity_level.value != blank -%}
+                    <div class="quiz-history-item__severity severity-{{ customer.metafields.alledrops.severity_level.value }}">
+                      <span class="severity-label">Severity (legacy):</span>
+                      <span class="severity-value">{{ customer.metafields.alledrops.severity_level.value | capitalize }}</span>
+                    </div>
+                  {%- endif -%}
                 {%- endif -%}
-                {%- if latest_region != blank -%}
+                {%- if latest_state != blank -%}
                   <div class="quiz-history-item__region">
-                    <span class="region-label">Region:</span>
-                    <span class="region-value">{{ latest_region }}</span>
+                    <span class="state-label">State:</span>
+                    <span class="state-value">{{ latest_state }}</span>
                   </div>
                 {%- endif -%}
                 <div class="quiz-history-item__profile-id">
