@@ -1,0 +1,3 @@
+# Pins the store for `shopify theme *` (CLI 3.x). Overrides session default (e.g. another dev store).
+[environments.default]
+store = "allergist-on-demand.myshopify.com"
