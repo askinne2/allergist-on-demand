@@ -30,7 +30,7 @@
         "text_FiMgya": {
           "type": "text",
           "settings": {
-            "text": "Take our 2-minute quiz to discover which AlleDrops formula is right for your region and symptoms.",
+            "text": "Take our 2-minute quiz to discover if AlleDrops are a good fit for you.",
             "text_style": "subtitle"
           }
         },
@@ -70,15 +70,25 @@
     "17615616560892d862": {
       "type": "apps",
       "blocks": {
-        "quiz_kit_smart_product_finder_quiz_VWGAKC": {
-          "type": "shopify://apps/quiz-kit-smart-product-finder/blocks/quiz/0b04f315-849a-4507-8339-7be41cc01813",
+        "alledrops_quiz_production_symptom_quiz_igLDNJ": {
+          "type": "shopify://apps/alledrops-quiz-production/blocks/symptom-quiz/019ad9de-6be6-7a75-a853-b0125a7a4f97",
           "settings": {
-            "key": "JKa3FwIRmI7"
+            "heading": "AlleDrops Symptom Assessment",
+            "subheading": "Answer a few questions about your allergy symptoms to see whether you may be a candidate for sublingual immunotherapy with AlleDrops. Available to residents of Tennessee and Texas.",
+            "show_disclaimer": true,
+            "app_url": "https://alle-drops-quiz-app.fly.dev",
+            "show_loading": true,
+            "enable_test_mode": false,
+            "consult_redirect_url": "shopify://products/allergy-consultation",
+            "test_options_redirect_url": "shopify://pages/test-options",
+            "privacy_policy_url": "",
+            "padding_top": 36,
+            "padding_bottom": 36
           }
         }
       },
       "block_order": [
-        "quiz_kit_smart_product_finder_quiz_VWGAKC"
+        "alledrops_quiz_production_symptom_quiz_igLDNJ"
       ],
       "settings": {
         "include_margins": false
