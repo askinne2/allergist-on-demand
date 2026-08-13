@@ -23,24 +23,6 @@
           "type": "title",
           "settings": {}
         },
-        "quiz_kit_smart_product_finder_badge_iDdVA7": {
-          "type": "shopify://apps/quiz-kit-smart-product-finder/blocks/badge/0b04f315-849a-4507-8339-7be41cc01813",
-          "settings": {
-            "text": "Your match",
-            "text_color": "#fdfbf7",
-            "text_font_size": 16,
-            "text_font_weight": "600",
-            "text_uppercase": true,
-            "icon_size": 30,
-            "icon_disable": false,
-            "width": "auto",
-            "position": "flex-start",
-            "background_color": "#566565",
-            "border_color": "#566565",
-            "border_radius": 20,
-            "border_width": 1
-          }
-        },
         "price": {
           "type": "price",
           "settings": {}
@@ -64,10 +46,14 @@
           "type": "quantity_selector",
           "settings": {}
         },
+        "alledrops_quiz_production_purchase_prerequisites_zXWG4h": {
+          "type": "shopify://apps/alledrops-quiz-production/blocks/purchase-prerequisites/019ad9de-6be6-7a75-a853-b0125a7a4f97",
+          "settings": {}
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
           }
         },
@@ -81,11 +67,11 @@
       "block_order": [
         "vendor",
         "title",
-        "quiz_kit_smart_product_finder_badge_iDdVA7",
         "price",
         "variant_picker",
         "regional_info_block_DJzMYb",
         "quantity_selector",
+        "alledrops_quiz_production_purchase_prerequisites_zXWG4h",
         "buy_buttons",
         "share"
       ],

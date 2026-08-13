@@ -81,7 +81,6 @@
             "enable_test_mode": false,
             "consult_redirect_url": "shopify://products/allergy-consultation",
             "test_options_redirect_url": "shopify://pages/test-options",
-            "privacy_policy_url": "",
             "padding_top": 36,
             "padding_bottom": 36
           }
