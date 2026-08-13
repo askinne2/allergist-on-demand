@@ -167,7 +167,7 @@
         "text_EAMrbk": {
           "type": "text",
           "settings": {
-            "text": "<p>AlleDrops is a product brand created and powered by Allergist On Demand (AOD) — a trusted telehealth company that connects patients nationwide to licensed allergy specialists.<br/><br/>For years, AOD has helped thousands of patients find lasting relief through customized immunotherapy programs. With AlleDrops, that same clinical expertise now comes directly to your doorstep — bringing allergy relief to everyone, everywhere.<br/><br/>AlleDrops by Allergist On Demand — science‑based relief, simplified.<br/></p>",
+            "text": "<p>AlleDrops is a product brand created and powered by Allergist On Demand (AOD) — a trusted telehealth company that connects patients to licensed allergy specialists.<br/><br/>For years, AOD has helped thousands of patients find lasting relief through customized immunotherapy programs. With AlleDrops, that same clinical expertise now comes directly to your doorstep and bringing you direct allergy relief.<br/><br/>AlleDrops by Allergist On Demand — science‑based relief, simplified.<br/></p>",
             "text_style": "body"
           }
         }
@@ -244,8 +244,8 @@
         "color_scheme": "scheme-5",
         "columns_mobile": "1",
         "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 72,
+        "padding_bottom": 72
       }
     },
     "image_with_text_GJj4WF": {
@@ -262,14 +262,14 @@
         "heading_GY3WrP": {
           "type": "heading",
           "settings": {
-            "heading": "Meet Your Provider Team",
+            "heading": "Meet Your Provider",
             "heading_size": "h1"
           }
         },
         "text_PxVBcz": {
           "type": "text",
           "settings": {
-            "text": "<p>Behind every AlleDrops formula is a team of licensed, board‑certified allergists and clinicians dedicated to redefining what accessible care looks like.<br/><br/>They bring decades of experience in allergy and immunology, combining clinical insight with compassion to ensure every patient receives safe, effective, and personalized treatment.</p>",
+            "text": "<p>Behind every AlleDrops formula is a team of licensed, board‑certified allergists and clinicians dedicated to redefining what accessible care looks like.</p><p>They bring decades of experience in allergy and immunology, combining clinical insight with compassion to ensure every patient receives safe, effective, and personalized treatment.</p><p><strong>Dr. Ryan Sullivan, MD </strong>is our board-certified allergist who handles all AlleDrops telehealth consults.</p>",
             "text_style": "body"
           }
         }

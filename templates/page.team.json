@@ -108,6 +108,15 @@
     "multicolumn_VihimR": {
       "type": "multicolumn",
       "blocks": {
+        "column_UCfTQT": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
         "column_BYaDWb": {
           "type": "column",
           "settings": {
@@ -117,58 +126,15 @@
             "link_label": "",
             "link": ""
           }
-        },
-        "column_RpyrTT": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/DrSullivanMed.jpg",
-            "title": "Dr. William Miller, MD, MBA",
-            "text": "<p>Board‑Certified Allergist & Chief Executive Officer</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_af7ydP": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/DrSullivanMed.jpg",
-            "title": "Dr. Richard C. Wright, MD",
-            "text": "<p>Founder & Chairman, Allergist On Demand</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_Kai7Th": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/DrSullivanMed.jpg",
-            "title": "Aida Figueroa, RN, MSN",
-            "text": "<p>Clinical Director</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_edzdJq": {
-          "type": "column",
-          "settings": {
-            "image": "shopify://shop_images/DrSullivanMed.jpg",
-            "title": "Scott Sumrall, PharmD",
-            "text": "<p>Compounding Partner</p>",
-            "link_label": "",
-            "link": ""
-          }
         }
       },
       "block_order": [
-        "column_BYaDWb",
-        "column_RpyrTT",
-        "column_af7ydP",
-        "column_Kai7Th",
-        "column_edzdJq"
+        "column_UCfTQT",
+        "column_BYaDWb"
       ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
-        "title": "Meet the Team",
+        "title": "Meet the Your Provider",
         "heading_size": "h1",
         "image_width": "full",
         "image_ratio": "portrait",
@@ -183,12 +149,77 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "multicolumn_tgP8gC": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_Rr4BFw": {
+          "type": "column",
+          "settings": {
+            "title": "Dr. William Miller, MD, MBA",
+            "text": "<p>Board‑Certified Allergist & Chief Executive Officer</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_DprEza": {
+          "type": "column",
+          "settings": {
+            "title": "Dr. Richard C. Wright, MD",
+            "text": "<p>Founder & Chairman, Allergist On Demand</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_LTX37U": {
+          "type": "column",
+          "settings": {
+            "title": "Aida Figueroa, RN, MSN",
+            "text": "<p>Clinical Director</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_yFBeCF": {
+          "type": "column",
+          "settings": {
+            "title": "Scott Sumrall, PharmD",
+            "text": "<p>Compounding Partner</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_Rr4BFw",
+        "column_DprEza",
+        "column_LTX37U",
+        "column_yFBeCF"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Allergist on Demand Board of Directors",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "portrait",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 2,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-4",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "image_banner_YpatzC",
     "rich_text_MmDCHd",
-    "multicolumn_VihimR"
+    "multicolumn_VihimR",
+    "multicolumn_tgP8gC"
   ]
 }

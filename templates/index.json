@@ -33,7 +33,7 @@
             "button_link_1": "shopify://pages/allergy-quiz",
             "button_style_secondary_1": false,
             "button_label_2": "Shop Drops",
-            "button_link_2": "shopify://products/regional-allergy-drops",
+            "button_link_2": "shopify://collections/frontpage",
             "button_style_secondary_2": false
           }
         }
@@ -67,16 +67,16 @@
             "title": "Take the Quiz",
             "text": "<p>Find out if AlleDrops are a good fit in under 2 minutes.</p>",
             "link_label": "",
-            "link": "shopify://pages/allergy-quiz"
+            "link": ""
           }
         },
         "column_MnCjDc": {
           "type": "column",
           "settings": {
             "title": "Shop Your Formula",
-            "text": "<p>Choose from regional or allergy-specific options, with flexible treatment plans.</p>",
+            "text": "<p>Choose from Tennessee or Texas regional formulas and select your preferred supply plan.</p>",
             "link_label": "",
-            "link": "shopify://collections"
+            "link": ""
           }
         },
         "column_ALraJq": {
@@ -85,7 +85,7 @@
             "title": "Start Treatment",
             "text": "<p>Your drops arrive at your door — no needles, no appointments required.</p>",
             "link_label": "",
-            "link": "shopify://products/regional-allergy-drops"
+            "link": ""
           }
         }
       },
@@ -121,8 +121,8 @@
         "heading_size": "h0",
         "description": "<p><strong>Formulated by board-certified allergists </strong></p>",
         "show_description": false,
-        "description_style": "subtitle",
-        "columns_desktop": 3,
+        "description_style": "body",
+        "columns_desktop": 2,
         "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": false,
@@ -268,7 +268,7 @@
           "settings": {
             "heading": "How long until I see results?",
             "icon": "question_mark",
-            "row_content": "<p>Many users report improvements within 4–6 weeks of consistent use.</p>",
+            "row_content": "<p>Most patients begin noticing improvement after 3–6 months of consistent daily use. For lasting, durable relief, AlleDrops works best as a long-term commitment — most patients see optimal results after 2–3 years of treatment.</p>",
             "page": ""
           }
         }

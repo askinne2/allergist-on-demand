@@ -88,7 +88,7 @@
         "text_cPFcFw": {
           "type": "text",
           "settings": {
-            "text": "<p>Our quiz helps match you with a region-based allergy drop blend tailored to where you live and what’s likely triggering your symptoms. No prior allergy testing required — just answer a few quick questions and we’ll guide you to the right fit.</p>",
+            "text": "<p>Our clinical symptom assessment takes about 2 minutes. It tells us how much allergies are affecting your daily life and helps determine whether AlleDrops may be appropriate for you.</p>",
             "text_style": "body"
           }
         },
@@ -145,7 +145,7 @@
         "text_EAMrbk": {
           "type": "text",
           "settings": {
-            "text": "<p>Based on your quiz results, we’ll recommend the best AlleDrops blend for your area. Each formula is backed by clinical science and compounded by licensed U.S. pharmacies. Just select your preferred frequency (Quarterly, Semi-Annual, or Annual) and we’ll handle the rest.</p>",
+            "text": "<p>If your results indicate you may benefit from immunotherapy, we'll direct you to the AlleDrops formula for your state.</p>",
             "text_style": "body"
           }
         }
@@ -295,7 +295,7 @@
         "text_PxVBcz": {
           "type": "text",
           "settings": {
-            "text": "<p>AlleDrops are allergy drops you can take under the tongue that help build long-term tolerance to allergens. Think of them as a more convenient, needle-free version of allergy shots. They’re safe, easy to use, and effective for both seasonal and environmental allergies.</p>",
+            "text": "<p>AlleDrops are a long-term treatment. Most patients begin experiencing relief within 3–6 months; durable, lasting benefit typically develops over 2–3 years of consistent daily use.</p>",
             "text_style": "body"
           }
         }

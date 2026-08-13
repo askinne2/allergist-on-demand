@@ -59,11 +59,19 @@
             "heading": "Quick links",
             "menu": "footer"
           }
+        },
+        "text_tX7q64": {
+          "type": "text",
+          "settings": {
+            "heading": "",
+            "subtext": "<h6>AlleDrops are compounded sublingual immunotherapy drops prepared by a licensed 503A/503B compounding pharmacy under physician prescription. Custom multi-allergen SLIT formulations are not FDA-approved as finished drug products; they are compounded as off-label use of FDA-approved allergen extracts.</h6>"
+          }
         }
       },
       "block_order": [
         "brand_information_7wrC9H",
-        "link_list_XKfGLx"
+        "link_list_XKfGLx",
+        "text_tX7q64"
       ],
       "settings": {
         "color_scheme": "scheme-5",
