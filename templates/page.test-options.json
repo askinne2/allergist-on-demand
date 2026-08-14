@@ -1,0 +1,477 @@
+/*
+ * ------------------------------------------------------------
+ * Testing Options — `/pages/test-options`
+ *
+ * Assign this template in Admin → Pages → Test Options → Theme template
+ * "test-options". main-page is disabled on purpose so the old Admin body
+ * ("recommended but not required") cannot reappear.
+ *
+ * Schedule CTA on this page goes to /products/allergy-consultation — that
+ * product is the TELE-01 booking page. Appointly renders when the patient
+ * clicks Schedule there; calendar config happens at go-live.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_testing": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_testing": {
+          "type": "heading",
+          "settings": {
+            "heading": "Testing Options",
+            "heading_size": "h1"
+          }
+        },
+        "text_testing": {
+          "type": "text",
+          "settings": {
+            "text": "Allergy testing before you start AlleDrops — how it works, how to get it, and what to do if you already have results.",
+            "text_style": "subtitle"
+          }
+        },
+        "buttons_testing": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Schedule a Telehealth Appointment",
+            "button_link_1": "shopify://products/allergy-consultation",
+            "button_style_secondary_1": false,
+            "button_label_2": "Take the Symptom Quiz",
+            "button_link_2": "shopify://pages/allergy-quiz",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_testing",
+        "text_testing",
+        "buttons_testing"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/science-beaker-and-pipette.jpg",
+        "image_overlay_opacity": 50,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-3",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "rich_text_intro": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_intro": {
+          "type": "heading",
+          "settings": {
+            "heading": "Testing comes first",
+            "heading_size": "h1"
+          }
+        },
+        "text_intro": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Allergy testing is required before starting AlleDrops. It confirms which allergens are driving your symptoms so your formula can be built to match them.</p><p>If you already have recent results, submit them as part of the online symptom assessment — no need to start over. If you don't, schedule a telehealth visit and an Allergist on Demand provider can order testing for you.</p><p>For medical emergencies or allergic reactions, call 911. Do not use this page in an emergency.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_intro",
+        "text_intro"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_why": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_why": {
+          "type": "caption",
+          "settings": {
+            "caption": "Why we test",
+            "text_style": "subtitle",
+            "text_size": "large"
+          }
+        },
+        "heading_why": {
+          "type": "heading",
+          "settings": {
+            "heading": "We need to know which allergens to treat.",
+            "heading_size": "h1"
+          }
+        },
+        "text_why": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We highly recommend allergy testing prior to initiating treatment. Results tell the clinical team which triggers are most likely responsible for your symptoms, and whether sublingual immunotherapy is an appropriate next step.</p><p>The symptom quiz is a screening tool. Testing is how we identify specific allergens.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "caption_why",
+        "heading_why",
+        "text_why"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AdobeStock_219422222-scaled.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_ige": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_ige": {
+          "type": "caption",
+          "settings": {
+            "caption": "Labcorp or Quest",
+            "text_style": "subtitle",
+            "text_size": "large"
+          }
+        },
+        "heading_ige": {
+          "type": "heading",
+          "settings": {
+            "heading": "Serum IgE testing, ordered by your provider",
+            "heading_size": "h1"
+          }
+        },
+        "text_ige": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Your provider may recommend serum (blood-based) IgE allergy testing through Labcorp or Quest Diagnostics. This is a blood draw at a local lab — not skin-prick testing in our clinic.</p><p>Testing is separate from AlleDrops and telehealth fees. The laboratory bills you directly; we do not set those prices.</p><p>Once results are in, they go to our clinical team to review alongside your symptom assessment.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_ige": {
+          "type": "button",
+          "settings": {
+            "button_label": "Schedule a Telehealth Appointment",
+            "button_link": "shopify://products/allergy-consultation",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "caption_ige",
+        "heading_ige",
+        "text_ige",
+        "button_ige"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AdobeStock_466281527-1-scaled_964f4537-4a66-4665-85c0-283f4eca2e41.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_steps": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_one": {
+          "type": "column",
+          "settings": {
+            "title": "1. Book a visit",
+            "text": "<p>Schedule a $99 virtual visit with a board-certified allergist. On the consultation page, click Schedule to open the booking widget.</p>",
+            "link_label": "Allergy Consultation",
+            "link": "shopify://products/allergy-consultation"
+          }
+        },
+        "column_two": {
+          "type": "column",
+          "settings": {
+            "title": "2. Get testing ordered",
+            "text": "<p>If you need testing, your provider can order serum IgE through Labcorp or Quest. Complete the blood draw at a local lab.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_three": {
+          "type": "column",
+          "settings": {
+            "title": "3. Submit what you have",
+            "text": "<p>Already have results? Return to the symptom assessment and submit them there. New results go to our clinical team after the lab reports them.</p>",
+            "link_label": "Symptom Quiz",
+            "link": "shopify://pages/allergy-quiz"
+          }
+        }
+      },
+      "block_order": [
+        "column_one",
+        "column_two",
+        "column_three"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "How to get tested",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-5",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_existing": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_existing": {
+          "type": "caption",
+          "settings": {
+            "caption": "Already tested",
+            "text_style": "subtitle",
+            "text_size": "large"
+          }
+        },
+        "heading_existing": {
+          "type": "heading",
+          "settings": {
+            "heading": "Bring your results to the assessment.",
+            "heading_size": "h1"
+          }
+        },
+        "text_existing": {
+          "type": "text",
+          "settings": {
+            "text": "<p>If you've already had allergy testing, you can submit your results as part of the online symptom assessment. You do not need to repeat testing just to continue.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_existing": {
+          "type": "button",
+          "settings": {
+            "button_label": "Take the Symptom Quiz",
+            "button_link": "shopify://pages/allergy-quiz",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "caption_existing",
+        "heading_existing",
+        "text_existing",
+        "button_existing"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AlleDrop-Hero.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collapsible_testing_faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq_required": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do I need allergy testing before AlleDrops?",
+            "icon": "question_mark",
+            "row_content": "<p>Yes. Allergy testing is required before starting AlleDrops. We highly recommend completing it prior to initiating treatment so the clinical team knows which allergens to treat.</p>",
+            "page": ""
+          }
+        },
+        "faq_kind": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What kind of testing is this?",
+            "icon": "question_mark",
+            "row_content": "<p>Serum (blood-based) IgE testing through Labcorp or Quest Diagnostics, ordered by your AlleDrops provider. It is a blood draw at a local lab, not skin-prick testing in our clinic.</p>",
+            "page": ""
+          }
+        },
+        "faq_cost": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How much does testing cost?",
+            "icon": "question_mark",
+            "row_content": "<p>Lab fees are billed directly by Labcorp or Quest. They are separate from the $99 telehealth visit and from AlleDrops. We do not set laboratory prices.</p>",
+            "page": ""
+          }
+        },
+        "faq_have_results": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "I already have test results. What should I do?",
+            "icon": "question_mark",
+            "row_content": "<p>Take the symptom assessment and submit your results there. You do not need to start over or repeat testing solely to continue.</p>",
+            "page": ""
+          }
+        },
+        "faq_consult": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I book the telehealth visit?",
+            "icon": "question_mark",
+            "row_content": "<p>Go to the Allergy Consultation product page and click Schedule. That opens the appointment booking widget. Calendar availability is configured by the clinic at go-live.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "faq_required",
+        "faq_kind",
+        "faq_cost",
+        "faq_have_results",
+        "faq_consult"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "Questions",
+        "heading": "Testing, explained",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "layout": "section",
+        "container_color_scheme": "scheme-4",
+        "color_scheme": "scheme-4",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_fda": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_fda": {
+          "type": "heading",
+          "settings": {
+            "heading": "A note about AlleDrops",
+            "heading_size": "h2"
+          }
+        },
+        "text_fda": {
+          "type": "text",
+          "settings": {
+            "text": "<p>AlleDrops are compounded sublingual immunotherapy drops prepared by a licensed 503A/503B compounding pharmacy under physician prescription. Custom multi-allergen SLIT formulations are not FDA-approved as finished drug products; they are compounded as off-label use of FDA-approved allergen extracts.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_fda",
+        "text_fda"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-5",
+        "full_width": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_cta": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_cta": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ready for the next step?",
+            "heading_size": "h1"
+          }
+        },
+        "buttons_cta": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Schedule a Telehealth Appointment",
+            "button_link_1": "shopify://products/allergy-consultation",
+            "button_style_secondary_1": false,
+            "button_label_2": "Contact Our Team",
+            "button_link_2": "shopify://pages/contact",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_cta",
+        "buttons_cta"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/AlleDrop-Hero.jpg",
+        "image_overlay_opacity": 40,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-4",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_testing",
+    "rich_text_intro",
+    "image_with_text_why",
+    "image_with_text_ige",
+    "multicolumn_steps",
+    "image_with_text_existing",
+    "collapsible_testing_faq",
+    "rich_text_fda",
+    "image_banner_cta"
+  ]
+}
