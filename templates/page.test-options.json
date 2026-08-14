@@ -1,14 +1,10 @@
 /*
  * ------------------------------------------------------------
- * Testing Options — `/pages/test-options`
+ * IMPORTANT: The contents of this file are auto-generated.
  *
- * Assign this template in Admin → Pages → Test Options → Theme template
- * "test-options". main-page is disabled on purpose so the old Admin body
- * ("recommended but not required") cannot reappear.
- *
- * Schedule CTA on this page goes to /products/allergy-consultation — that
- * product is the TELE-01 booking page. Appointly renders when the patient
- * clicks Schedule there; calendar config happens at go-live.
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
 {
