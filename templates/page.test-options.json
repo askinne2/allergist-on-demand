@@ -30,7 +30,7 @@
         "text_testing": {
           "type": "text",
           "settings": {
-            "text": "Allergy testing before you start AlleDrops — how it works, how to get it, and what to do if you already have results.",
+            "text": "How allergy testing works before you start AlleDrops, and what to do if you've already been tested.",
             "text_style": "subtitle"
           }
         },
@@ -79,7 +79,7 @@
         "text_intro": {
           "type": "text",
           "settings": {
-            "text": "<p>Allergy testing is required before starting AlleDrops. It confirms which allergens are driving your symptoms so your formula can be built to match them.</p><p>If you already have recent results, submit them as part of the online symptom assessment — no need to start over. If you don't, schedule a telehealth visit and an Allergist on Demand provider can order testing for you.</p><p>For medical emergencies or allergic reactions, call 911. Do not use this page in an emergency.</p>"
+            "text": "<p>Allergy testing is required before starting AlleDrops. It tells us which allergens are actually causing your symptoms, so your formula matches them.</p><p>Already been tested? Submit those results with the online symptom assessment instead of starting over. If you haven't, book a telehealth visit and an Allergist on Demand provider can order testing for you.</p><p>Call 911 for a medical emergency or an allergic reaction. This page is not for emergencies.</p>"
           }
         }
       },
@@ -118,7 +118,7 @@
         "text_why": {
           "type": "text",
           "settings": {
-            "text": "<p>We highly recommend allergy testing prior to initiating treatment. Results tell the clinical team which triggers are most likely responsible for your symptoms, and whether sublingual immunotherapy is an appropriate next step.</p><p>The symptom quiz is a screening tool. Testing is how we identify specific allergens.</p>",
+            "text": "<p>Your results tell the clinical team which triggers are behind your symptoms, and whether sublingual immunotherapy makes sense for you.</p><p>The symptom quiz is a screening tool. Testing is what identifies the specific allergens.</p>",
             "text_style": "body"
           }
         }
@@ -166,7 +166,7 @@
         "text_ige": {
           "type": "text",
           "settings": {
-            "text": "<p>Your provider may recommend serum (blood-based) IgE allergy testing through Labcorp or Quest Diagnostics. This is a blood draw at a local lab — not skin-prick testing in our clinic.</p><p>Testing is separate from AlleDrops and telehealth fees. The laboratory bills you directly; we do not set those prices.</p><p>Once results are in, they go to our clinical team to review alongside your symptom assessment.</p>",
+            "text": "<p>Your provider may order a serum IgE allergy test through Labcorp or Quest Diagnostics. That is a blood draw at a local lab, not skin-prick testing in a clinic.</p><p>The lab bills you directly. Testing costs are separate from AlleDrops and from the telehealth visit, and we do not set lab prices.</p><p>When your results come back, the clinical team reviews them alongside your symptom assessment.</p>",
             "text_style": "body"
           }
         },
@@ -209,7 +209,7 @@
           "type": "column",
           "settings": {
             "title": "1. Book a visit",
-            "text": "<p>Schedule a $99 virtual visit with a board-certified allergist. On the consultation page, click Schedule to open the booking widget.</p>",
+            "text": "<p>Schedule a $99 virtual visit with a board-certified allergist. On the consultation page, click Schedule to open the booking calendar.</p>",
             "link_label": "Allergy Consultation",
             "link": "shopify://products/allergy-consultation"
           }
@@ -218,7 +218,7 @@
           "type": "column",
           "settings": {
             "title": "2. Get testing ordered",
-            "text": "<p>If you need testing, your provider can order serum IgE through Labcorp or Quest. Complete the blood draw at a local lab.</p>",
+            "text": "<p>Your provider can order a serum IgE test through Labcorp or Quest. You complete the blood draw at a local lab.</p>",
             "link_label": "",
             "link": ""
           }
@@ -226,8 +226,8 @@
         "column_three": {
           "type": "column",
           "settings": {
-            "title": "3. Submit what you have",
-            "text": "<p>Already have results? Return to the symptom assessment and submit them there. New results go to our clinical team after the lab reports them.</p>",
+            "title": "3. Send us your results",
+            "text": "<p>Already tested? Go back to the symptom assessment and upload them there. New results reach the clinical team once the lab reports them.</p>",
             "link_label": "Symptom Quiz",
             "link": "shopify://pages/allergy-quiz"
           }
@@ -277,7 +277,7 @@
         "text_existing": {
           "type": "text",
           "settings": {
-            "text": "<p>If you've already had allergy testing, you can submit your results as part of the online symptom assessment. You do not need to repeat testing just to continue.</p>",
+            "text": "<p>If you have had allergy testing already, submit those results with the online symptom assessment. You do not have to get tested again to keep going.</p>",
             "text_style": "body"
           }
         },
@@ -321,7 +321,7 @@
           "settings": {
             "heading": "Do I need allergy testing before AlleDrops?",
             "icon": "question_mark",
-            "row_content": "<p>Yes. Allergy testing is required before starting AlleDrops. We highly recommend completing it prior to initiating treatment so the clinical team knows which allergens to treat.</p>",
+            "row_content": "<p>Yes. Testing is required before you start AlleDrops, so the clinical team knows which allergens to treat.</p>",
             "page": ""
           }
         },
@@ -330,7 +330,7 @@
           "settings": {
             "heading": "What kind of testing is this?",
             "icon": "question_mark",
-            "row_content": "<p>Serum (blood-based) IgE testing through Labcorp or Quest Diagnostics, ordered by your AlleDrops provider. It is a blood draw at a local lab, not skin-prick testing in our clinic.</p>",
+            "row_content": "<p>A serum IgE blood test through Labcorp or Quest Diagnostics, ordered by your AlleDrops provider. You get the blood draw at a local lab rather than skin-prick testing in a clinic.</p>",
             "page": ""
           }
         },
@@ -339,7 +339,7 @@
           "settings": {
             "heading": "How much does testing cost?",
             "icon": "question_mark",
-            "row_content": "<p>Lab fees are billed directly by Labcorp or Quest. They are separate from the $99 telehealth visit and from AlleDrops. We do not set laboratory prices.</p>",
+            "row_content": "<p>Labcorp or Quest bills you directly for the lab work. That is separate from the $99 telehealth visit and from AlleDrops itself. We do not set lab prices.</p>",
             "page": ""
           }
         },
@@ -348,7 +348,7 @@
           "settings": {
             "heading": "I already have test results. What should I do?",
             "icon": "question_mark",
-            "row_content": "<p>Take the symptom assessment and submit your results there. You do not need to start over or repeat testing solely to continue.</p>",
+            "row_content": "<p>Take the symptom assessment and submit your results there. You do not need to get tested again.</p>",
             "page": ""
           }
         },
@@ -357,7 +357,7 @@
           "settings": {
             "heading": "How do I book the telehealth visit?",
             "icon": "question_mark",
-            "row_content": "<p>Go to the Allergy Consultation product page and click Schedule. That opens the appointment booking widget. Calendar availability is configured by the clinic at go-live.</p>",
+            "row_content": "<p>Open the Allergy Consultation product page and click Schedule. That opens the booking calendar. The clinic sets its availability at go-live.</p>",
             "page": ""
           }
         }
@@ -372,7 +372,7 @@
       "name": "t:sections.collapsible_content.presets.name",
       "settings": {
         "caption": "Questions",
-        "heading": "Testing, explained",
+        "heading": "What people ask about testing",
         "heading_size": "h1",
         "heading_alignment": "left",
         "layout": "section",
@@ -422,7 +422,7 @@
         "heading_cta": {
           "type": "heading",
           "settings": {
-            "heading": "Ready for the next step?",
+            "heading": "Talk to a provider",
             "heading_size": "h1"
           }
         },
