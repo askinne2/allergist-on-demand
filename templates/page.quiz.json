@@ -76,7 +76,7 @@
             "heading": "AlleDrops Symptom Assessment",
             "subheading": "Answer a few questions about your allergy symptoms to see whether you may be a candidate for sublingual immunotherapy with AlleDrops. Available to residents of Tennessee and Texas.",
             "show_disclaimer": true,
-            "app_url": "https://alle-drops-quiz-app.fly.dev",
+            "app_url": "https://alle-drops-quiz-app-502519175239.us-east1.run.app",
             "show_loading": true,
             "enable_test_mode": false,
             "consult_redirect_url": "shopify://products/allergy-consultation",
